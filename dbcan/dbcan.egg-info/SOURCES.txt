@@ -1,0 +1,6 @@
+setup.py
+dbcan.egg-info/PKG-INFO
+dbcan.egg-info/SOURCES.txt
+dbcan.egg-info/dependency_links.txt
+dbcan.egg-info/entry_points.txt
+dbcan.egg-info/top_level.txt

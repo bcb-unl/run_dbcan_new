@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: dbcan
+Version: 5.0.0
+Summary: Update version for dbCAN
+Home-page: https://github.com/Xinpeng021001/dbCAN-xinpeng
+Author: Xinpeng Zhang
+Author-email: xzhang55@huskers.unl.edu
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12

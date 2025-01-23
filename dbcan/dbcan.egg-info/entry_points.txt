@@ -1,0 +1,2 @@
+[console_scripts]
+run_dbcan = dbcan.run_dbcan:main
