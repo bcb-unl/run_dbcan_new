@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='run_dbcan_new',
-    version='5.0.1',
+    version='5.0.2',
     packages=find_packages(),
     install_requires=[
         'pandas',
@@ -15,11 +15,16 @@ setup(
         'pyhmmer',
         'biopython==1.84',
         'bcbio-gff',
-        'pyrodigal'        
+        'pyrodigal',
+        'pysam',
+        'seaborn',     
     ],
     entry_points={
         'console_scripts': [
-            'run_dbcan=dbcan.run_dbcan:main'
+            'run_dbcan=dbcan.run_dbcan:main',
+            'dbcan_plot=dbcan.utils.plot:main',
+            'dbcan_utils=dbcan.utils.utils:main',
+            'dbcan_asmfree=dbcan.utils.diamond_unassembly:main',
         ]
     },
     author='Xinpeng Zhang',
