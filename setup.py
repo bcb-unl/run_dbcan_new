@@ -22,7 +22,7 @@ setup(
     entry_points={
         'console_scripts': [
             'run_dbcan=dbcan.run_dbcan:main',
-            'dbcan_plot=dbcan.utils.plot:main',
+            'dbcan_plot=dbcan.utils.plots:main',
             'dbcan_utils=dbcan.utils.utils:main',
             'dbcan_asmfree=dbcan.utils.diamond_unassembly:main',
         ]
@@ -32,7 +32,7 @@ setup(
     description='Update version for dbCAN',
 #    long_description=open('README.md').read(),
 #    long_description_content_type='text/markdown',
-    url='https://github.com/Xinpeng021001/dbCAN-xinpeng',
+    url='https://github.com/Xinpeng021001/run_dbCAN_new',
     license='MIT',
     classifiers=[
         'Programming Language :: Python :: 3',

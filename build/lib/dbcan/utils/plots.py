@@ -326,7 +326,7 @@ class plot_parameters():
         self.CAZyme_annotation  = self.input + "overview.txt"
         self.dbCANsub_substrate_annotation  = self.input + "dbcan-sub.hmm.out"
         self.PUL_substrate_annotation  = self.input + "substrate.out"
-        self.PUL_annotation  = self.input + "cgc_standard_out.tsv"
+        self.PUL_annotation  = self.input + "cgc_standard.out"
         self.function = args.function
         self.parameters_check()
     

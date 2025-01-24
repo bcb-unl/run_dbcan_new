@@ -1,0 +1,33 @@
+Metadata-Version: 2.2
+Name: run_dbcan_new
+Version: 5.0.2
+Summary: Update version for dbCAN
+Home-page: https://github.com/Xinpeng021001/run_dbCAN_new
+Author: Xinpeng Zhang
+Author-email: xzhang55@huskers.unl.edu
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Requires-Dist: pandas
+Requires-Dist: psutil
+Requires-Dist: tqdm
+Requires-Dist: pandas
+Requires-Dist: requests
+Requires-Dist: matplotlib
+Requires-Dist: openpyxl
+Requires-Dist: pyhmmer
+Requires-Dist: biopython==1.84
+Requires-Dist: bcbio-gff
+Requires-Dist: pyrodigal
+Requires-Dist: pysam
+Requires-Dist: seaborn
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

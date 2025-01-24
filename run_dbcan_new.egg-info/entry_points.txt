@@ -1,0 +1,5 @@
+[console_scripts]
+dbcan_asmfree = dbcan.utils.diamond_unassembly:main
+dbcan_plot = dbcan.utils.plots:main
+dbcan_utils = dbcan.utils.utils:main
+run_dbcan = dbcan.run_dbcan:main

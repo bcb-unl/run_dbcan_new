@@ -1,0 +1,13 @@
+pandas
+psutil
+tqdm
+pandas
+requests
+matplotlib
+openpyxl
+pyhmmer
+biopython==1.84
+bcbio-gff
+pyrodigal
+pysam
+seaborn
