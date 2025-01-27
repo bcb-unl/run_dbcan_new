@@ -421,10 +421,19 @@ def main():
         run_dbCAN_CAZyme_annotation(args)
 
     if args.command == 'easy_CGC':
-        run_dbCAN_input_process(args)
-        run_dbCAN_CAZyme_annotation(args)      
-        run_CGC_annotation_preprocess(args)
-        run_CGC_annotation(args)
+        if args.mode == 'prok' or args.mode == 'meta':
+            args.input_gff = os.path.join(args.output_dir, 'uniInput.gff')
+            args.input_gff_format = 'prodigal'
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
+
+        else:
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
 
     if args.command == 'easy_substrate':
         run_dbCAN_input_process(args)
