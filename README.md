@@ -25,7 +25,7 @@
 
 **Notice**
 
-This is the updated version of run_dbcan. There are many changes compared to the old version, and the relevant RPO address has been moved to bcb-unl (new organization). We will try our best to keep the two versions updated synchronously.
+This is the updated version of run_dbcan. There are many changes compared to the old version, and the relevant REPO address has been moved to bcb-unl (new organization). We will try our best to keep the two versions updated synchronously.
 
 **run_dbcan** is the standalone version of the [dbCAN3](http://bcb.unl.edu/dbCAN2/) annotation tool for automated CAZyme annotation. This tool, known as `run_dbcan`, incorporates HMMER, Diamond, and dbCAN_sub for annotating CAZyme families, and integrates Cazyme Gene Clusters (CGCs) and substrate predictions.
 
