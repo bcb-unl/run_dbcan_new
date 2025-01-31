@@ -1,4 +1,4 @@
-name: run_dbcan_env
+name: run_dbCAN_new
 channels:
   - bioconda
   - conda-forge
@@ -17,3 +17,6 @@ dependencies:
   - biopython=1.84
   - pysam
   - seaborn
+  - pip
+  - pip:
+    - run-dbcan-new

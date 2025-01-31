@@ -1,4 +1,4 @@
-name: run_dbcan_env
+name: CAZyme_annotation_em
 channels:
   - bioconda
   - conda-forge
@@ -17,3 +17,14 @@ dependencies:
   - biopython=1.84
   - pysam
   - seaborn
+  - samtools
+  - bwa
+  - mmseqs2
+  - trim-galore
+  - megahit
+  - kraken2
+  - krakentools
+  - pip
+  - pip:
+    - run-dbcan-new
+  
