@@ -1,0 +1,3 @@
+[console_scripts]
+ncbi-genome-download = ncbi_genome_download.__main__:main
+ngd = ncbi_genome_download.__main__:main
