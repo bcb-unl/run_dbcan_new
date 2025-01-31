@@ -421,24 +421,49 @@ def main():
         run_dbCAN_CAZyme_annotation(args)
 
     if args.command == 'easy_CGC':
-        run_dbCAN_input_process(args)
-        run_dbCAN_CAZyme_annotation(args)      
-        run_CGC_annotation_preprocess(args)
-        run_CGC_annotation(args)
+        if args.mode == 'prok' or args.mode == 'meta':
+            args.input_gff = os.path.join(args.output_dir, 'uniInput.gff')
+            args.input_gff_format = 'prodigal'
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
+
+        else:
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
 
     if args.command == 'easy_substrate':
-        run_dbCAN_input_process(args)
-        run_dbCAN_CAZyme_annotation(args)      
-        run_CGC_annotation_preprocess(args)
-        run_CGC_annotation(args)
+        if args.mode == 'prok' or args.mode == 'meta':
+            args.input_gff = os.path.join(args.output_dir, 'uniInput.gff')
+            args.input_gff_format = 'prodigal'
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
 
-        args.input = args.output_dir
-        cgc_substrate_prediction(args)
+            args.input = args.output_dir
+            cgc_substrate_prediction(args)
 
-        args.input_sub_out = os.path.join(args.output_dir, 'substrate.out')
-        args.blastp = os.path.join(args.output_dir, 'PUL_blast.out')
-        args.cgc = os.path.join(args.output_dir, 'cgc_standard_out.tsv')
-        syntenic_plot_allpairs(args)
+            args.input_sub_out = os.path.join(args.output_dir, 'substrate.out')
+            args.blastp = os.path.join(args.output_dir, 'PUL_blast.out')
+            args.cgc = os.path.join(args.output_dir, 'cgc_standard_out.tsv')
+            syntenic_plot_allpairs(args)
+        else:
+            run_dbCAN_input_process(args)
+            run_dbCAN_CAZyme_annotation(args)      
+            run_CGC_annotation_preprocess(args)
+            run_CGC_annotation(args)
+
+            args.input = args.output_dir
+            cgc_substrate_prediction(args)
+
+            args.input_sub_out = os.path.join(args.output_dir, 'substrate.out')
+            args.blastp = os.path.join(args.output_dir, 'PUL_blast.out')
+            args.cgc = os.path.join(args.output_dir, 'cgc_standard_out.tsv')
+            syntenic_plot_allpairs(args)
 
 
 if __name__ == '__main__':
