@@ -18,9 +18,8 @@ We currently support configuration using anaconda and pip:
 
 .. code-block:: shell
   
-  conda env create -f environment.yml (available at https://github.com/Xinpeng021001/run_dbCAN_new/blob/master/environment.yml)
-  conda activate dbCAN-test-env
-  pip install run-dbcan-new
+  conda env create -f environment.yml (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs)
+  conda activate run_dbCAN_new
 
 
 1. Running Example Data for CAZyme Annotation
