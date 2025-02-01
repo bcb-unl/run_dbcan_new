@@ -4,6 +4,8 @@ User Guide
 Update: This is the new version of run_dbCAN. We add multiple new features and improve the performance of the pipeline. The new version is more user-friendly and more efficient. 
 We recommend users to use the new version of run_dbCAN. If you have any questions or suggestions, please feel free to contact us.
 
+All conda environments can be found at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs
+
 1. Add a function for downloading database files which is simpler than before.   
 
 2. Import pyrodigal (https://pyrodigal.readthedocs.io/en/stable/) instead of prodigal for input processing, besides, add function for data preprocessing, and now  run_dbCAN could support prodigal format, JGI format, and NCBI format with setting parameter.  
