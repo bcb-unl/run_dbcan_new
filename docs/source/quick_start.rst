@@ -31,6 +31,7 @@ To run the dbCAN tool suite on the `Escherichia coli Strain MG1655`_ example dat
 .. code-block:: shell
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.fna -O EscheriaColiK12MG1655.fna
+
     run_dbcan easy_CAZyme --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna --db_dir db
 
 .. _Escherichia coli Strain MG1655: https://www.ncbi.nlm.nih.gov/nuccore/U00096.2
@@ -48,7 +49,9 @@ We also provide eukaryotes example data sets. For example, to run the dbCAN tool
 .. code-block:: shell
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa -O Xylona_heveae_TC161.faa
+
     run_dbcan easy_CAZyme --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa --db_dir db  --input_format NCBI
+    
 .. _Xylona heveae TC161: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/
 
 And JGI dataset `Xylhe1`_:
@@ -56,6 +59,7 @@ And JGI dataset `Xylhe1`_:
 .. code-block:: shell
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.aa.fasta -O Xylhe1_GeneCatalog_proteins_20130827.aa.fasta
+
     run_dbcan easy_CAZyme --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa --db_dir db  --input_format JGI
 
 .. _Xylhe1: https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html
@@ -82,8 +86,8 @@ After running the tool, several output files are generated in the output folder,
 
 
 
-3. Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues.)
----------------------------------------------------------------------------------------------------------------------------------------------------------------
+3. Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues. Here we download the gff files.)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 .. code-block:: shell
 
     run_dbcan easy_CGC --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna_CGC --db_dir db --input_gff gff --input_gff_format prodigal
@@ -91,15 +95,21 @@ After running the tool, several output files are generated in the output folder,
 
 .. code-block:: shell
 
+    wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.gff -O EscheriaColiK12MG1655.gff
+
     run_dbcan easy_CGC --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa_CGC --db_dir db --input_format NCBI --input_gff EscheriaColiK12MG1655.gff --input_gff_format NCBI_prok
 
 
 .. code-block:: shell
 
+    wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.gff -O Xylona_heveae_TC161.gff
+
     run_dbcan easy_CGC --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa_CGC --db_dir db  --input_format NCBI --input_gff Xylona_heveae_TC161.gff --input_gff_format NCBI_euk
 
 
 .. code-block:: shell
+
+    wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.gff -O Xylhe1_GeneCatalog_proteins_20130827.gff
 
     run_dbcan easy_CGC --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa_CGC --db_dir db  --input_format JGI --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff --input_gff_format JGI
 
@@ -133,7 +143,7 @@ including the output files from the previous step, and new outputs:
   The standard output of CGCFinder.
 
 
-5. Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues. Here we download the gff files.)
+1. Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues.)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 .. code-block:: shell
@@ -144,19 +154,17 @@ including the output files from the previous step, and new outputs:
 
 .. code-block:: shell
 
-    wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.gff -O EscheriaColiK12MG1655.gff
     run_dbcan easy_substrate --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa_sub --db_dir db --input_format NCBI --input_gff EscheriaColiK12MG1655.gff --input_gff_format NCBI_prok
 
 
 .. code-block:: shell
 
-    wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.gff -O Xylona_heveae_TC161.gff
+    
     run_dbcan easy_substrate --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa_sub --db_dir db  --input_format NCBI --input_gff Xylona_heveae_TC161.gff --input_gff_format NCBI_euk
 
 
 .. code-block:: shell
 
-    wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.gff -O Xylhe1_GeneCatalog_proteins_20130827.gff
     run_dbcan easy_substrate --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa_sub --db_dir db  --input_format JGI --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff --input_gff_format JGI
 
 
