@@ -5,8 +5,7 @@ prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan
 .. code-block:: shell
 
     conda env create -f environment.yml
-    conda activate dbCAN-test-env
-    pip install run-dbcan-new
+    conda activate run_dbcan_env
 
 
 1. We provide command in the run_dbcan script:

@@ -1,4 +1,4 @@
-name: run_dbCAN_new
+name: run_dbcan_env
 channels:
   - bioconda
   - conda-forge
