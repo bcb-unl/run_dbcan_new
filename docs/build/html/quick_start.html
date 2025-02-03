@@ -47,10 +47,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#running-example-data-for-cazyme-annotation">1. Running Example Data for CAZyme Annotation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#understanding-the-output">2. Understanding the Output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-example-data-for-cgc-annotation">3. Running Example Data for CGC Annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-example-data-for-cgc-annotation-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues">3. Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don’t repeat it here to avoid issues.)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">4. Understanding the Output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-example-data-for-substrate-prediction">5. Running Example Data for Substrate Prediction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">6. Understanding the Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-example-data-for-substrate-prediction-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues-here-we-download-the-gff-files">5. Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don’t repeat it here to avoid issues. Here we download the gff files.)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1. Understanding the Output</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="input_fasta_data_processing.html">Process the input fasta file</a></li>
@@ -101,27 +101,33 @@
 <p>2.One by one command that allows checking problems by breaking down the steps or making autonomous changes to some of the results.</p>
 <p>Here we show all the steps in one line of command.</p>
 <p>We provide multiple example data sets for users to test the tool suite. The example data sets are available in the <cite>example_data</cite> directory.</p>
-<p>We currently support configuration using anaconda and pip:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml<span class="w"> </span><span class="o">(</span>available<span class="w"> </span>at<span class="w"> </span>https://github.com/bcb-unl/run_dbcan_new/tree/master/envs<span class="o">)</span>
-conda<span class="w"> </span>activate<span class="w"> </span>run_dbCAN_new
+<p>We currently support configuration using anaconda and pip.
+prepare the conda environment (available at <a class="reference external" href="https://github.com/bcb-unl/run_dbcan_new/tree/master/envs">https://github.com/bcb-unl/run_dbcan_new/tree/master/envs</a>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
+conda<span class="w"> </span>activate<span class="w"> </span>run_dbcan_env
 </pre></div>
 </div>
 <section id="running-example-data-for-cazyme-annotation">
 <h2>1. Running Example Data for CAZyme Annotation<a class="headerlink" href="#running-example-data-for-cazyme-annotation" title="Permalink to this heading"></a></h2>
 <p>To run the dbCAN tool suite on the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/nuccore/U00096.2">Escherichia coli Strain MG1655</a> example data, use the following command. The input file <cite>EscheriaColiK12MG1655.fna</cite> represents the FASTA format complete genome DNA sequence.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.fna<span class="w"> </span>--mode<span class="w"> </span>prok<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_fna<span class="w"> </span>--db_dir<span class="w"> </span>db
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.fna<span class="w"> </span>-O<span class="w"> </span>EscheriaColiK12MG1655.fna
+run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.fna<span class="w"> </span>--mode<span class="w"> </span>prok<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_fna<span class="w"> </span>--db_dir<span class="w"> </span>db
 </pre></div>
 </div>
 <p>For the protein sequence input, use the following command (Please note that the input format is needed for the protein sequence only. <cite>NCBI</cite> represents the fasta ID format like NCBI “&gt;WP_000002088.1”, and the <cite>JGI</cite> mode represents the fasta ID format like JGI “&gt;jgi|Xylhe1|242238|”).:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_format<span class="w"> </span>NCBI
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.faa<span class="w"> </span>-O<span class="w"> </span>EscheriaColiK12MG1655.faa
+
+run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_format<span class="w"> </span>NCBI
 </pre></div>
 </div>
 <p>We also provide eukaryotes example data sets. For example, to run the dbCAN tool suite on the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/">Xylona heveae TC161</a> example data, use the following command:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylona_heveae_TC161.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylona_heveae_TC161_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>NCBI
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa<span class="w"> </span>-O<span class="w"> </span>Xylona_heveae_TC161.faa
+run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylona_heveae_TC161.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylona_heveae_TC161_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>NCBI
 </pre></div>
 </div>
 <p>And JGI dataset <a class="reference external" href="https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html">Xylhe1</a>:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylhe1_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>JGI
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>-O<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta
+run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylhe1_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>JGI
 </pre></div>
 </div>
 </section>
@@ -141,8 +147,8 @@ conda<span class="w"> </span>activate<span class="w"> </span>run_dbCAN_new
 </dd>
 </dl>
 </section>
-<section id="running-example-data-for-cgc-annotation">
-<h2>3. Running Example Data for CGC Annotation<a class="headerlink" href="#running-example-data-for-cgc-annotation" title="Permalink to this heading"></a></h2>
+<section id="running-example-data-for-cgc-annotation-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues">
+<h2>3. Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don’t repeat it here to avoid issues.)<a class="headerlink" href="#running-example-data-for-cgc-annotation-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues" title="Permalink to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_CGC<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.fna<span class="w"> </span>--mode<span class="w"> </span>prok<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_fna_CGC<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_gff<span class="w"> </span>gff<span class="w"> </span>--input_gff_format<span class="w"> </span>prodigal
 </pre></div>
 </div>
@@ -176,23 +182,26 @@ conda<span class="w"> </span>activate<span class="w"> </span>run_dbCAN_new
 </dd>
 </dl>
 </section>
-<section id="running-example-data-for-substrate-prediction">
-<h2>5. Running Example Data for Substrate Prediction<a class="headerlink" href="#running-example-data-for-substrate-prediction" title="Permalink to this heading"></a></h2>
+<section id="running-example-data-for-substrate-prediction-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues-here-we-download-the-gff-files">
+<h2>5. Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don’t repeat it here to avoid issues. Here we download the gff files.)<a class="headerlink" href="#running-example-data-for-substrate-prediction-please-check-the-previous-step-for-downloading-example-fasta-data-we-don-t-repeat-it-here-to-avoid-issues-here-we-download-the-gff-files" title="Permalink to this heading"></a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.fna<span class="w"> </span>--mode<span class="w"> </span>prok<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_fna_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_gff<span class="w"> </span>gff<span class="w"> </span>--input_gff_format<span class="w"> </span>prodigal
 </pre></div>
 </div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_format<span class="w"> </span>NCBI<span class="w"> </span>--input_gff<span class="w"> </span>EscheriaColiK12MG1655.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>NCBI_prok
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.gff<span class="w"> </span>-O<span class="w"> </span>EscheriaColiK12MG1655.gff
+run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w"> </span>--input_format<span class="w"> </span>NCBI<span class="w"> </span>--input_gff<span class="w"> </span>EscheriaColiK12MG1655.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>NCBI_prok
 </pre></div>
 </div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylona_heveae_TC161.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylona_heveae_TC161_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>NCBI<span class="w"> </span>--input_gff<span class="w"> </span>Xylona_heveae_TC161.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>NCBI_euk
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.gff<span class="w"> </span>-O<span class="w"> </span>Xylona_heveae_TC161.gff
+run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylona_heveae_TC161.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylona_heveae_TC161_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>NCBI<span class="w"> </span>--input_gff<span class="w"> </span>Xylona_heveae_TC161.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>NCBI_euk
 </pre></div>
 </div>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylhe1_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>JGI<span class="w"> </span>--input_gff<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>JGI
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.gff<span class="w"> </span>-O<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.gff
+run_dbcan<span class="w"> </span>easy_substrate<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylhe1_faa_sub<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>JGI<span class="w"> </span>--input_gff<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.gff<span class="w"> </span>--input_gff_format<span class="w"> </span>JGI
 </pre></div>
 </div>
 </section>
 <section id="id2">
-<h2>6. Understanding the Output<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<h2>1. Understanding the Output<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>including the output files from the previous step, and new outputs:</p>
 <dl class="simple">
 <dt><strong>substrate.out</strong></dt><dd><p>The final output of substrate prediction, which includes the substrate prediction results of each CAZyme gene cluster.</p>
