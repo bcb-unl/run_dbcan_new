@@ -19,9 +19,9 @@ prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan
 
 .. code-block:: shell
 
-    wget -q https://bcb.unl.edu/dbCAN2/download/test/dbCAN_db.tar.gz -O db.tar.gz
+    wget -q https://bcb.unl.edu/dbCAN2/download/dbCAN_db.tar.gz -O db.tar.gz
     tar -zxvf db.tar.gz
     rm db.tar.gz
 
 
-.. _example folder: https://bcb.unl.edu/dbCAN2/download/run_dbCAN_database_total/test_data
+.. _example folder: https://bcb.unl.edu/dbCAN2/download/test
