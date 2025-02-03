@@ -1,8 +1,8 @@
-Metadata-Version: 2.2
-Name: run_dbcan_new
-Version: 5.0.3
+Metadata-Version: 2.1
+Name: run-dbcan-new
+Version: 5.0.5
 Summary: Update version for dbCAN
-Home-page: https://github.com/Xinpeng021001/run_dbCAN_new
+Home-page: https://github.com/bcb-unl/run_dbcan_new
 Author: Xinpeng Zhang
 Author-email: xzhang55@huskers.unl.edu
 License: MIT
@@ -23,11 +23,3 @@ Requires-Dist: bcbio-gff
 Requires-Dist: pyrodigal
 Requires-Dist: pysam
 Requires-Dist: seaborn
-Dynamic: author
-Dynamic: author-email
-Dynamic: classifier
-Dynamic: home-page
-Dynamic: license
-Dynamic: requires-dist
-Dynamic: requires-python
-Dynamic: summary

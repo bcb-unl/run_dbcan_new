@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='run_dbcan_new',
-    version='5.0.3',
+    version='5.0.5',
     packages=find_packages(),
     install_requires=[
         'pandas',
@@ -32,7 +32,7 @@ setup(
     description='Update version for dbCAN',
 #    long_description=open('README.md').read(),
 #    long_description_content_type='text/markdown',
-    url='https://github.com/Xinpeng021001/run_dbCAN_new',
+    url='https://github.com/bcb-unl/run_dbcan_new',
     license='MIT',
     classifiers=[
         'Programming Language :: Python :: 3',

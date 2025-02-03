@@ -39,4 +39,4 @@ BRAKER:      https://github.com/Gaius-Augustus/BRAKER
 
 EviAnn:      https://github.com/alekseyzimin/EviAnn_release
 
-.. _example folder: https://bcb.unl.edu/dbCAN2/download/test/
+.. _example folder: https://bcb.unl.edu/dbCAN2/download/test

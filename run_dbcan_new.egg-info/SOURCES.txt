@@ -1,3 +1,4 @@
+README.md
 setup.py
 dbcan/CGCFinder_pandas_class.py
 dbcan/OverviewGenerator.py
