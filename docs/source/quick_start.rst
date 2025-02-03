@@ -15,7 +15,11 @@ We provide multiple example data sets for users to test the tool suite. The exam
 
 
 We currently support configuration using anaconda and pip.
-prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs):
+
+.. hint:: 
+  we didn't ask the users to git clone all repo from the github because we've uploaded it to the Pypi, and the users can install it by pip.
+  Users need to prepare the environmental files, which could be downloaded from the github repo. We provide the environmental files in the `envs` folder, and could also be found directly in this link:
+  prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs)
 
 .. code-block:: shell
   
@@ -51,7 +55,7 @@ We also provide eukaryotes example data sets. For example, to run the dbCAN tool
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa -O Xylona_heveae_TC161.faa
 
     run_dbcan easy_CAZyme --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa --db_dir db  --input_format NCBI
-    
+
 .. _Xylona heveae TC161: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/
 
 And JGI dataset `Xylhe1`_:

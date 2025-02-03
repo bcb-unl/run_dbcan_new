@@ -101,8 +101,13 @@
 <p>2.One by one command that allows checking problems by breaking down the steps or making autonomous changes to some of the results.</p>
 <p>Here we show all the steps in one line of command.</p>
 <p>We provide multiple example data sets for users to test the tool suite. The example data sets are available in the <cite>example_data</cite> directory.</p>
-<p>We currently support configuration using anaconda and pip.
-prepare the conda environment (available at <a class="reference external" href="https://github.com/bcb-unl/run_dbcan_new/tree/master/envs">https://github.com/bcb-unl/run_dbcan_new/tree/master/envs</a>):</p>
+<p>We currently support configuration using anaconda and pip.</p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>we didn’t ask the users to git clone all repo from the github because we’ve uploaded it to the Pypi, and the users can install it by pip.
+Users need to prepare the environmental files, which could be downloaded from the github repo. We provide the environmental files in the <cite>envs</cite> folder, and could also be found directly in this link:
+prepare the conda environment (available at <a class="reference external" href="https://github.com/bcb-unl/run_dbcan_new/tree/master/envs">https://github.com/bcb-unl/run_dbcan_new/tree/master/envs</a>)</p>
+</div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>environment.yml
 conda<span class="w"> </span>activate<span class="w"> </span>run_dbcan_env
 </pre></div>
@@ -111,6 +116,7 @@ conda<span class="w"> </span>activate<span class="w"> </span>run_dbcan_env
 <h2>1. Running Example Data for CAZyme Annotation<a class="headerlink" href="#running-example-data-for-cazyme-annotation" title="Permalink to this heading"></a></h2>
 <p>To run the dbCAN tool suite on the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/nuccore/U00096.2">Escherichia coli Strain MG1655</a> example data, use the following command. The input file <cite>EscheriaColiK12MG1655.fna</cite> represents the FASTA format complete genome DNA sequence.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.fna<span class="w"> </span>-O<span class="w"> </span>EscheriaColiK12MG1655.fna
+
 run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>EscheriaColiK12MG1655.fna<span class="w"> </span>--mode<span class="w"> </span>prok<span class="w"> </span>--output_dir<span class="w"> </span>output_EscheriaColiK12MG1655_fna<span class="w"> </span>--db_dir<span class="w"> </span>db
 </pre></div>
 </div>
@@ -122,11 +128,13 @@ run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_
 </div>
 <p>We also provide eukaryotes example data sets. For example, to run the dbCAN tool suite on the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/">Xylona heveae TC161</a> example data, use the following command:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa<span class="w"> </span>-O<span class="w"> </span>Xylona_heveae_TC161.faa
+
 run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylona_heveae_TC161.faa<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylona_heveae_TC161_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>NCBI
 </pre></div>
 </div>
 <p>And JGI dataset <a class="reference external" href="https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html">Xylhe1</a>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>-q<span class="w"> </span>https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>-O<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta
+
 run_dbcan<span class="w"> </span>easy_CAZyme<span class="w"> </span>--input_raw_data<span class="w"> </span>Xylhe1_GeneCatalog_proteins_20130827.aa.fasta<span class="w"> </span>--mode<span class="w"> </span>protein<span class="w"> </span>--output_dir<span class="w"> </span>output_Xylhe1_faa<span class="w"> </span>--db_dir<span class="w"> </span>db<span class="w">  </span>--input_format<span class="w"> </span>JGI
 </pre></div>
 </div>
