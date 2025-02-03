@@ -1,10 +1,10 @@
 Database Installation Command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-prepare the conda environment:
+prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs):
 
 .. code-block:: shell
 
-    conda env create -f environment.yml (available at https://github.com/Xinpeng021001/run_dbCAN_new/blob/master/environment.yml)
+    conda env create -f environment.yml
     conda activate dbCAN-test-env
     pip install run-dbcan-new
 
@@ -22,3 +22,6 @@ prepare the conda environment:
     wget -q https://bcb.unl.edu/dbCAN2/download/test/dbCAN_db.tar.gz -O db.tar.gz
     tar -zxvf db.tar.gz
     rm db.tar.gz
+
+
+.. _example folder: https://bcb.unl.edu/dbCAN2/download/run_dbCAN_database_total/test_data

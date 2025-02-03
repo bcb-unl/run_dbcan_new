@@ -1,6 +1,6 @@
 Database Installation Command
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-prepare the conda environment (available at https://github.com/Xinpeng021001/run_dbCAN_new/blob/master/environment.yml):
+prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs):
 
 .. code-block:: shell
 
