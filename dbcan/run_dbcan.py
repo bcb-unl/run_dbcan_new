@@ -440,7 +440,7 @@ def main():
             args.input_gff = os.path.join(args.output_dir, 'uniInput.gff')
             args.input_gff_format = 'prodigal'
             run_dbCAN_input_process(args)
-            run_dbCAN_CAZyme_annotation(args)      
+            run_dbCAN_CAZyme_annotation(args)
             run_CGC_annotation_preprocess(args)
             run_CGC_annotation(args)
 

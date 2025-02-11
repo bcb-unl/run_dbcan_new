@@ -53,4 +53,4 @@ Please cite the following `dbCAN` publications if you use `run_dbcan` in your re
 >
 > Nucleic Acids Research, Volume 46, Issue D1, 4 January 2018, Pages D516–D521, doi: [10.1093/nar/gkx894\*](https://doi.org/10.1093/nar/gkx894*).
 
-[dbcan doc]: https://dbcan-readme-bcb.readthedocs.io/en/latest/
+[dbcan doc]: https://run-dbcan-new.readthedocs.io/en/latest/
