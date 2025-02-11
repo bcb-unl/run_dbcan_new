@@ -893,33 +893,33 @@ def cgc_prediction_webserver(args,sub_pred):
     ## {jobid:20221122142425,dbcansub:dbcansub,Sub_Pred:sub_pred,dbCAN_PUL:dbCAN_PUL,dbCAN_Sub:dbCAN_Sub}
     ## or {"jobid":"20221122161713","dbcansub":"","Sub_Pred":"sub_pred","dbCAN_PUL":"dbCAN_PUL","dbCAN_Sub":""}
 
-# def dbCAN3_paramters_prepare(args):
-#     args.input = args.output_dir if args.output_dir.endswith("/") else args.output_dir+"/"
-#     args.workdir = args.output_dir if args.output_dir.endswith("/") else args.output_dir+"/"
-#     ##
-#     global ROOT_FOLDR 
-#     ROOT_FOLDR = args.db_dir if args.db_dir.endswith("/") else args.db_dir+"/"
+def dbCAN3_paramters_prepare(args):
+    args.input = args.output_dir if args.output_dir.endswith("/") else args.output_dir+"/"
+    args.workdir = args.output_dir if args.output_dir.endswith("/") else args.output_dir+"/"
+    ##
+    global ROOT_FOLDR 
+    ROOT_FOLDR = args.db_dir if args.db_dir.endswith("/") else args.db_dir+"/"
 
-# def cgc_substrate_prediction(args):
-#     ## add parameters for dealing with substrates
+def cgc_substrate_prediction(args):
+    ## add parameters for dealing with substrates
     
-#     if args.command == 'cgc_substrate_prediction': ### this means dbCAN3 call cgc substrate prediction
-#         dbCAN3_paramters_prepare(args)
+    if args.command == 'cgc_substrate_prediction': ### this means dbCAN3 call cgc substrate prediction
+        dbCAN3_paramters_prepare(args)
     
-#     sub_pred = dbCAN_substrate_prediction(args)
-#     if args.env == "server":
-#         cgc_prediction_webserver(args,sub_pred) ### dealing with webserver
+    sub_pred = dbCAN_substrate_prediction(args)
+    if args.env == "server":
+        cgc_prediction_webserver(args,sub_pred) ### dealing with webserver
 
-#     sub_pred.check_input()
-#     time_start = time.time()
-#     sub_pred.substrate_predict()
-#     time_end = time.time()
-#     print(f"Substrate prediciton done! {(time_end-time_start)}s")
-#     sub_pred.result_print_to_file()
+    sub_pred.check_input()
+    time_start = time.time()
+    sub_pred.substrate_predict()
+    time_end = time.time()
+    print(f"Substrate prediciton done! {(time_end-time_start)}s")
+    sub_pred.result_print_to_file()
     
-#     if sub_pred.odbcan_sub:
-#         sub_pred.dbcan_sub_intermediate_file()
-#     time_end = time.time()
+    if sub_pred.odbcan_sub:
+        sub_pred.dbcan_sub_intermediate_file()
+    time_end = time.time()
     
     # ### plot the syntenic block 
     # if args.command == 'cgc_substrate_prediction':
