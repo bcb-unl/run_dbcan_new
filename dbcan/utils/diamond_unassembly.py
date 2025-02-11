@@ -137,11 +137,11 @@ def check_read_type(filename):
 def get_count_reads(file):
     if file.endswith("fq.gz"):
         r = os.popen("zcat " + file + " | echo $((`wc -l`/4))")
-    elif filename.endswith(".fq"):
+    elif file.endswith(".fq"):
         r = os.popen("cat " + file + " | echo $((`wc -l`/4))")
     elif file.endswith("fa.gz"):
         r = os.popen("zcat " + file + " | grep '>' " + " | wc -l")
-    elif filename.endswith(".fa"):
+    elif file.endswith(".fa"):
         r = os.popen("grep '>' " + file + " | wc -l")
     text = r.read()
     r.close()
