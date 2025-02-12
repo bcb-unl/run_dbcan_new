@@ -27,7 +27,7 @@ jobs:
         auto-update-conda: true
         auto-activate-base: false
         channels: bioconda, conda-forge, defaults
-        environment-file: test/test_environment.yml
+        environment-file: tests/test_environment.yml
         # Activate the conda environment for running dbCAN
         activate-environment: test_run_dbcan_env
 
