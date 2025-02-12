@@ -19,10 +19,11 @@ jobs:
         python-version: [ "3.12"]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
 
     - uses: conda-incubator/setup-miniconda@v3
       with:
+        mamba-version: "*"
         python-version: ${{ matrix.python-version }}
         auto-update-conda: true
         auto-activate-base: false
