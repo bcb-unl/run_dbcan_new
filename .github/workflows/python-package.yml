@@ -19,24 +19,19 @@ jobs:
         python-version: [ "3.12"]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4.2.2
 
-    - uses: conda-incubator/setup-miniconda@v3
+    - uses: conda-incubator/setup-miniconda@v3.1.1
       with:
-        mamba-version: "*"
         python-version: ${{ matrix.python-version }}
         auto-update-conda: true
         auto-activate-base: false
         channels: bioconda, conda-forge, defaults
-        environment-file: environment.yml
+        environment-file: test/test_environment.yml
         # Activate the conda environment for running dbCAN
-        activate-environment: run_dbcan_env
+        activate-environment: test_run_dbcan_env
 
-
-    - name: Install dependencies
-      run: |
-        conda install flake8 pytest -y
-
+    
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
