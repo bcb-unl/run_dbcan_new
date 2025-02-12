@@ -30,6 +30,13 @@ jobs:
         environment-file: environment.yml
         activate-environment: run_dbcan_env
 
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+
+    - name: Check which Python
+      run: |
+        which python
+        python --version
 
     - name: Install dependencies
       run: |
