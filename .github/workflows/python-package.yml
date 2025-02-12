@@ -35,6 +35,7 @@ jobs:
 
     - name: Check which Python
       run: |
+        conda init
         conda activate run_dbcan_env
         which python
         python --version
