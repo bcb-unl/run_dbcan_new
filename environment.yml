@@ -7,7 +7,6 @@ dependencies:
   - python=3.12
   - diamond
   - pip
-  - pip:
-    - run-dbcan-new
+  - rich-click
   
 
