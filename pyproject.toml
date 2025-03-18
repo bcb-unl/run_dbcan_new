@@ -5,6 +5,7 @@ requires = ["hatchling", "hatch-vcs"]
 [tool.hatch.version]
 source = "vcs"
 
+
 [tool.hatch.build.hooks.vcs]
 version-file = "dbcan/_version.py"
 
@@ -21,7 +22,7 @@ name = "run_dbcan_new"
 dynamic = ["version"]
 description = "updated standalone version of dbCAN annotation tool for automated CAZyme annotation"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
     {name = "Xinpeng Zhang"},
@@ -37,19 +38,22 @@ maintainers = [
     {name = "Haidong Yi", email = "haidyi@cs.unc.edu"}
     ]
 dependencies = [
-        "psutil",
-        "tqdm",
-        "pandas",
-        "requests",
-        "matplotlib",
-        "openpyxl",
-        "pyhmmer",
-        "biopython",
-        "bcbio-gff",
-        "pyrodigal",
-        "pysam",
-        "seaborn",     
-    
+        "psutil~=6.0",
+        "tqdm==4.67.1",
+        "pandas==2.2.3",
+        "requests==2.32.3",
+        "matplotlib==3.10.1",
+        "openpyxl==3.1.5",
+        "pyhmmer==0.11.0",
+        "biopython==1.85",
+        "bcbio-gff==0.7.1",
+        "pyrodigal==3.6.3",
+        "pysam==0.23.0",
+        "seaborn==0.13.2",
+        "rich-click==1.8.8",
+        "pycirclize==1.9.0",
+
+
     # for debug logging (referenced from the issue template)
     "importlib_metadata; python_version<'3.13'",
     "session-info"
@@ -70,7 +74,7 @@ Source = "https://github.com/bcb-unl/run_dbcan_new/"
 Home-page = "https://bcb.unl.edu/dbCAN2/"
 
 [project.scripts]
-run_dbcan="dbcan.run_dbcan:main"
+run_dbcan="dbcan.main:cli"
 dbcan_plot="dbcan.utils.plots:main"
 dbcan_utils="dbcan.utils.utils:main"
 dbcan_asmfree="dbcan.utils.diamond_unassembly:main"
@@ -80,7 +84,7 @@ dbcan_asmfree="dbcan.utils.diamond_unassembly:main"
 [project.optional-dependencies]
 dev = [
     "pre-commit",
-    "twine>=4.0.2",
+    "twine>=6.1.0",
     "pkginfo>=1.10.0",
     "setuptools_scm>7,<8",
 ]
@@ -99,7 +103,8 @@ doc = [
     "sphinx-issues",
     "sphinx-design",
     "sphinx-argparse",
-    "sphinx_rtd_theme"
+    "sphinx_rtd_theme",
+    "sphinx-click",
 ]
 test = [
     "pytest",

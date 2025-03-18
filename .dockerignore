@@ -1,0 +1,5 @@
+.venv
+.ruff_cache
+db
+docs
+tests

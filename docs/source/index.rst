@@ -35,20 +35,36 @@ Otherwise, please refer to any following instruction. Please note that some of t
 
 .. toctree::
    :maxdepth: 1
+   :caption: getting_started
+   
+   getting_started/installation
+   getting_started/quick_start
 
-   prepare_the_database
-   quick_start
-   input_fasta_data_processing
-   CAZyme_annotation
-   CGC_information_generation
-   CGC_annotation 
-   predict_CGC_substrate 
-   CGC_substrate_plots
-   run_from_raw_reads
-   run_from_raw_reads_am 
-   run_from_raw_reads_pr
-   run_from_raw_reads_wk
-   run_from_raw_reads_em
-   run_from_raw_reads_sp_co_assem
-   run_from_raw_reads_sp_subsample
-   run_from_raw_reads_sp_assem_free
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: user_guide
+
+   user_guide/prepare_the_database
+   user_guide/CAZyme_annotation
+   user_guide/CGC_information_generation
+   user_guide/CGC_annotation 
+   user_guide/predict_CGC_substrate 
+   user_guide/CGC_plots
+
+
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: metagenomics_pipeline
+
+   metagenomics_pipeline/run_from_raw_reads
+   metagenomics_pipeline/run_from_raw_reads_am 
+   metagenomics_pipeline/run_from_raw_reads_pr
+   metagenomics_pipeline/run_from_raw_reads_wk
+   metagenomics_pipeline/run_from_raw_reads_em
+   metagenomics_pipeline/supplement/run_from_raw_reads_sp_co_assem
+   metagenomics_pipeline/supplement/run_from_raw_reads_sp_subsample
+   metagenomics_pipeline/supplement/run_from_raw_reads_sp_assem_free
