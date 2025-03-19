@@ -23,7 +23,7 @@ name = "dbcan"
 dynamic = ["version"]
 description = "updated standalone version of dbCAN annotation tool for automated CAZyme annotation"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = {file = "LICENSE"}
 authors = [
     {name = "Xinpeng Zhang"},
