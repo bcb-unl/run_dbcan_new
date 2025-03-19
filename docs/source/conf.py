@@ -11,7 +11,7 @@ import sphinx_rtd_theme
 project = 'dbCAN-new-README'
 copyright = '2025, Xinpeng Zhang; Haidong Yi; Jinfang Zheng'
 author = 'Xinpeng Zhang; Haidong Yi; Jinfang Zheng'
-release = '0.1.1'
+release = '1.1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
