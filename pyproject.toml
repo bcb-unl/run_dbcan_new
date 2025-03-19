@@ -6,6 +6,7 @@ requires = ["hatchling", "hatch-vcs"]
 source = "vcs"
 
 
+
 [tool.hatch.build.hooks.vcs]
 version-file = "dbcan/_version.py"
 
@@ -18,7 +19,7 @@ exclude = ["tests/**/_data"]
 packages = ["dbcan"]
 
 [project]
-name = "run_dbcan_new"
+name = "dbcan"
 dynamic = ["version"]
 description = "updated standalone version of dbCAN annotation tool for automated CAZyme annotation"
 readme = "README.md"
@@ -26,9 +27,9 @@ requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
     {name = "Xinpeng Zhang"},
+    {name = "Haidong Yi"},
     {name = "Le Huang"},
     {name = "Jinfang Zheng"},
-    {name = "Haidong Yi"},
     {name = "Qiwei Ge"},
     {name = "Tanner Yohe"},
 ]

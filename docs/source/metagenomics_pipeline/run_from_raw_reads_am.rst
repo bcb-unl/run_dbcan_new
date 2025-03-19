@@ -13,7 +13,7 @@ The Amelia 2024 dataset `amelia_2024`_ was published in 2024 from a soil metagen
 The raw read data, intermediate data from each analysis step, and final result data and visualization files are organized in nested folders available on our website https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/).
 
 Procedure
----------   
+---------
 
 Software and versions
 `````````````````````
@@ -46,16 +46,16 @@ To install the databases, execute the following commands:
 Module 1: Reads processing to obtain contigs
 `````````````````````````````````````````````````````
 
-S1| Download Amelia2024 (Table 2) raw reads (~20min) 
+S1| Download Amelia2024 (Table 2) raw reads (~20min)
 .. code-block:: shell
 
-    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HTOOS_1.fastq.gz 
-    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HTOOS_2.fastq.gz  
-    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HCZGU_1.fastq.gz  
-    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HCZGU_2.fastq.gz  
+    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HTOOS_1.fastq.gz
+    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HTOOS_2.fastq.gz
+    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HCZGU_1.fastq.gz
+    wget https://bcb.unl.edu/dbCAN_tutorial/dataset5-Amelia2024/HCZGU_2.fastq.gz
 
 
-These raw data were originally downloaded from https://www.ncbi.nlm.nih.gov/sra/?term=SRR24887509 and https://www.ncbi.nlm.nih.gov/sra/?term=SRR24887498 and renamed to indicate their collected samples (Table 2).  
+These raw data were originally downloaded from https://www.ncbi.nlm.nih.gov/sra/?term=SRR24887509 and https://www.ncbi.nlm.nih.gov/sra/?term=SRR24887498 and renamed to indicate their collected samples (Table 2).
 
 .. code-block:: shell
 
@@ -74,11 +74,11 @@ Use `kraken2` to check for contaminated reads:
 
 .. code-block:: shell
 
-    kraken2 --threads 32 --quick --paired --db K2 --report HTOOS.kreport --output HTOOS.kraken.output HTOOS_1.fastq.gz HTOOS_2.fastq.gz 
+    kraken2 --threads 32 --quick --paired --db K2 --report HTOOS.kreport --output HTOOS.kraken.output HTOOS_1.fastq.gz HTOOS_2.fastq.gz
 
-    kraken2 --threads 32 --quick --paired --db K2 --report HCZGU.kreport --output HCZGU.kraken.output HCZGU_1.fastq.gz HCZGU_2.fastq.gz 
+    kraken2 --threads 32 --quick --paired --db K2 --report HCZGU.kreport --output HCZGU.kraken.output HCZGU_1.fastq.gz HCZGU_2.fastq.gz
 
-Kraken2 found very little contamination in the Amelia2024 data. Consequently, there was no need for the contamination removal step.  
+Kraken2 found very little contamination in the Amelia2024 data. Consequently, there was no need for the contamination removal step.
 
 If contamination is identified, users can align the reads to the reference genomes of potential contamination source organisms to remove
 the aligned reads (Box 1). The most common source in human microbiome studies is from human hosts.
@@ -90,10 +90,10 @@ Box 1: Example to remove contamination reads from human
 
 .. code-block:: shell
 
-    -rw-r--r-- 1 jinfang yinlab 9.2G May 31 05:59 HTOOS.kraken.output 
-    -rw-r--r-- 1 jinfang yinlab 1.2M May 31 05:59 HTOOS.kreport 
-    -rw-r--r-- 1 jinfang yinlab 4.9G May 31 03:21 HCZGU.kraken.output 
-    -rw-r--r-- 1 jinfang yinlab 1.1M May 31 03:21 HCZGU.kreport 
+    -rw-r--r-- 1 jinfang yinlab 9.2G May 31 05:59 HTOOS.kraken.output
+    -rw-r--r-- 1 jinfang yinlab 1.2M May 31 05:59 HTOOS.kreport
+    -rw-r--r-- 1 jinfang yinlab 4.9G May 31 03:21 HCZGU.kraken.output
+    -rw-r--r-- 1 jinfang yinlab 1.1M May 31 03:21 HCZGU.kreport
 
 Suppose from these files, we have identified humans as the contam
 
@@ -101,29 +101,29 @@ Suppose from these files, we have identified humans as the contam
 Suppose from these files, we have identified humans as the contamination source, we can use the following commands to remove the contamination reads by aligning reads to the human reference genome.
 
 .. code-block:: shell
-    
-    wget https://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz 
-    bwa index -p hg38 Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz 
-    bwa mem hg38 HTOOS_1.fastq.gz HTOOS_2.fastq.gz -t 32 -o HTOOS.hg38.sam 
-    bwa mem hg38 HCZGU_1.fastq.gz HCZGU_2.fastq.gz -t 32 -o HCZGU.hg38.sam 
-    samtools view -f 12 HCZGU.hg38.sam > HCZGU.hg38.unmap.bam 
-    samtools view -f 12 HTOOS.hg38.sam > HTOOS.hg38.unmap.bam 
-    samtools fastq -1 HCZGU_1.clean.fq.gz -2 HCZGU_2.clean.fq.gz HCZGU.hg38.unmap.bam 
-    samtools fastq -1 HTOOS_1.clean.fq.gz -2 HTOOS_2.clean.fq.gz HTOOS.hg38.unmap.bam 
+
+    wget https://ftp.ensembl.org/pub/release-110/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+    bwa index -p hg38 Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz
+    bwa mem hg38 HTOOS_1.fastq.gz HTOOS_2.fastq.gz -t 32 -o HTOOS.hg38.sam
+    bwa mem hg38 HCZGU_1.fastq.gz HCZGU_2.fastq.gz -t 32 -o HCZGU.hg38.sam
+    samtools view -f 12 HCZGU.hg38.sam > HCZGU.hg38.unmap.bam
+    samtools view -f 12 HTOOS.hg38.sam > HTOOS.hg38.unmap.bam
+    samtools fastq -1 HCZGU_1.clean.fq.gz -2 HCZGU_2.clean.fq.gz HCZGU.hg38.unmap.bam
+    samtools fastq -1 HTOOS_1.clean.fq.gz -2 HTOOS_2.clean.fq.gz HTOOS.hg38.unmap.bam
 
 KrakenTools could also extract host reads quickly and easied which is recommended. We use tax 2759 (plant) as an example.
 Please read KrakenTools README for more information (https://github.com/jenniferlu717/KrakenTools?tab=readme-ov-file).
 
 .. code-block:: shell
 
-    extract_kraken_reads.py -k HTOOS.kraken.output  -taxid 9606 -exclude -s1 HTOOS_1.fq.gz -s2 HTOOS_2.fastq.gz -o HTOOS_1.clean.fq -o2 HTOOS_2.clean.fq 
-    gzip HTOOS_1.clean.fq 
-    gzip HTOOS_2.clean.fq 
+    extract_kraken_reads.py -k HTOOS.kraken.output  -taxid 9606 -exclude -s1 HTOOS_1.fq.gz -s2 HTOOS_2.fastq.gz -o HTOOS_1.clean.fq -o2 HTOOS_2.clean.fq
+    gzip HTOOS_1.clean.fq
+    gzip HTOOS_2.clean.fq
 
 
-    extract_kraken_reads.py -k HCZGU.kraken.output -taxid 9606 -exclude -s1 HCZGU_1.fastq.gz -s2 HCZGU_2.fastq.gz -o HCZGU_1.clean.fq -o2 HCZGU_2.clean.fq 
-    gzip HCZGU_1.clean.fq 
-    gzip HCZGU_2.clean.fq 
+    extract_kraken_reads.py -k HCZGU.kraken.output -taxid 9606 -exclude -s1 HCZGU_1.fastq.gz -s2 HCZGU_2.fastq.gz -o HCZGU_1.clean.fq -o2 HCZGU_2.clean.fq
+    gzip HCZGU_1.clean.fq
+    gzip HCZGU_2.clean.fq
 
 
 P2. Trim adapter and low-quality reads (TIMING ~20min)
@@ -131,9 +131,9 @@ P2. Trim adapter and low-quality reads (TIMING ~20min)
 
 .. code-block:: shell
 
-    trim_galore --paired HTOOS_1.fastq.gz HTOOS_2.fastq.gz --illumina -j 36 
+    trim_galore --paired HTOOS_1.fastq.gz HTOOS_2.fastq.gz --illumina -j 36
 
-    trim_galore --paired HCZGU_1.fastq.gz HCZGU_2.fastq.gz --illumina -j 36 
+    trim_galore --paired HCZGU_1.fastq.gz HCZGU_2.fastq.gz --illumina -j 36
 
 We specified --illumina to indicate that the reads were generated using the Illumina sequencing platform.
 Nonetheless, trim_galore can automatically detect adapters, providing flexibility for users who may know the specific sequencing platform.
@@ -147,14 +147,14 @@ Box 2: Example output of `trim_galore`
 
 .. code-block:: shell
 
-    -rw-r--r-- 1 jinfang yinlab 5.1K May 31 03:27 HCZGU_1.fastq.gz_trimming_report.txt 
-    -rw-r--r-- 1 jinfang yinlab 8.5G May 31 03:45 HCZGU_1_val_1.fq.gz 
-    -rw-r--r-- 1 jinfang yinlab 5.3K May 31 03:45 HCZGU_2.fastq.gz_trimming_report.txt 
-    -rw-r--r-- 1 jinfang yinlab 8.5G May 31 03:45 HCZGU_2_val_2.fq.gz 
-    -rw-r--r-- 1 jinfang yinlab 5.2K May 31 06:10 HTOOS_1.fastq.gz_trimming_report.txt 
+    -rw-r--r-- 1 jinfang yinlab 5.1K May 31 03:27 HCZGU_1.fastq.gz_trimming_report.txt
+    -rw-r--r-- 1 jinfang yinlab 8.5G May 31 03:45 HCZGU_1_val_1.fq.gz
+    -rw-r--r-- 1 jinfang yinlab 5.3K May 31 03:45 HCZGU_2.fastq.gz_trimming_report.txt
+    -rw-r--r-- 1 jinfang yinlab 8.5G May 31 03:45 HCZGU_2_val_2.fq.gz
+    -rw-r--r-- 1 jinfang yinlab 5.2K May 31 06:10 HTOOS_1.fastq.gz_trimming_report.txt
     -rw-r--r-- 1 jinfang yinlab  16G May 31 06:45 HTOOS_1_val_1.fq.gz
     -rw-r--r-- 1 jinfang yinlab 5.4K May 31 06:45 HTOOS_2.fastq.gz_trimming_report.txt
-    -rw-r--r-- 1 jinfang yinlab  16G May 31 06:45 HTOOS_2_val_2.fq.gz 
+    -rw-r--r-- 1 jinfang yinlab  16G May 31 06:45 HTOOS_2_val_2.fq.gz
 
 .. warning::
 
@@ -169,24 +169,24 @@ Use Megahit for assembling reads into contigs:
 
 .. code-block:: shell
 
-    megahit -m 0.5 -t 32 -o megahit_HTOOS -1 HTOOS_1_val_1.fq.gz -2 HTOOS_2_val_2.fq.gz --out-prefix HTOOS --min-contig-len 1000 
+    megahit -m 0.5 -t 32 -o megahit_HTOOS -1 HTOOS_1_val_1.fq.gz -2 HTOOS_2_val_2.fq.gz --out-prefix HTOOS --min-contig-len 1000
 
-    megahit -m 0.5 -t 32 -o megahit_HCZGU -1 HCZGU_1_val_1.fq.gz -2 HCZGU_2_val_2.fq.gz --out-prefix HCZGU --min-contig-len 1000 
+    megahit -m 0.5 -t 32 -o megahit_HCZGU -1 HCZGU_1_val_1.fq.gz -2 HCZGU_2_val_2.fq.gz --out-prefix HCZGU --min-contig-len 1000
 
-MEGAHIT generates two output folders: megahit_HCZGU and megahit_HTOOS. 
-Each contains five files and one sub-folder (Box 3). HTOOS.contigs.fa is the final contig sequence file. We set --min-contig-len 1000, a common practice to retain all contigs longer than 1,000 base pairs.  
+MEGAHIT generates two output folders: megahit_HCZGU and megahit_HTOOS.
+Each contains five files and one sub-folder (Box 3). HTOOS.contigs.fa is the final contig sequence file. We set --min-contig-len 1000, a common practice to retain all contigs longer than 1,000 base pairs.
 
 Box 3: Example output of `MEGAHIT`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: shell
 
-    -rw-r--r-- 1 jinfang yinlab   262 Jun  3 04:58 checkpoints.txt 
-    -rw-r--r-- 1 jinfang yinlab     0 Jun  3 04:58 done 
-    -rw-r--r-- 1 jinfang yinlab  2.1G Jun  3 04:58 HTOOS.contigs.fa 
-    -rw-r--r-- 1 jinfang yinlab  1.4M Jun  3 04:58 HTOOS.log 
-    drwxr-xr-x 2 jinfang yinlab   41K Jun  3 04:57 intermediate_contigs 
-    -rw-r--r-- 1 jinfang yinlab  1.1K Jun  1 18:59 options.json 
+    -rw-r--r-- 1 jinfang yinlab   262 Jun  3 04:58 checkpoints.txt
+    -rw-r--r-- 1 jinfang yinlab     0 Jun  3 04:58 done
+    -rw-r--r-- 1 jinfang yinlab  2.1G Jun  3 04:58 HTOOS.contigs.fa
+    -rw-r--r-- 1 jinfang yinlab  1.4M Jun  3 04:58 HTOOS.log
+    drwxr-xr-x 2 jinfang yinlab   41K Jun  3 04:57 intermediate_contigs
+    -rw-r--r-- 1 jinfang yinlab  1.1K Jun  1 18:59 options.json
 
 
 P4. Predict genes by `Pyrodigal` (TIMING ~24min)
@@ -203,15 +203,15 @@ Box 4: Example output of `Pyrodigal`
 
 .. code-block:: shell
 
-    -rw-r--r-- 1 jinfang yinlab 2.1G Jun  3 07:15 HTOOS.cds 
-    -rw-r--r-- 1 jinfang yinlab 921M Jun  3 07:15 HTOOS.faa 
-    -rw-r--r-- 1 jinfang yinlab 857M Jun  3 07:15 HTOOS.gff 
+    -rw-r--r-- 1 jinfang yinlab 2.1G Jun  3 07:15 HTOOS.cds
+    -rw-r--r-- 1 jinfang yinlab 921M Jun  3 07:15 HTOOS.faa
+    -rw-r--r-- 1 jinfang yinlab 857M Jun  3 07:15 HTOOS.gff
 
 Hint: If you apply ``prodigal`` not ``pyrodigal``, use this to fix gene ID in gff files by dbcan_utils (TIMING ~1min)
 
 .. code-block:: shell
 
-    dbcan_utils gff_fix -i HTOOS.faa -g HTOOS.gff 
+    dbcan_utils gff_fix -i HTOOS.faa -g HTOOS.gff
     dbcan_utils gff_fix -i HCZGU.faa -g HCZGU.gff
 
 
@@ -227,8 +227,8 @@ P5. CAZyme annotation at the CAZyme family level (TIMING ~10min)
 
 .. code-block:: shell
 
-    run_dbcan easy_CAZyme --input_raw_data HTOOS.faa --mode protein --output_dir HTOOS.CAZyme --db_dir db --input_format NCBI
-    run_dbcan easy_CAZyme --input_raw_data HCZGU.faa --mode protein --output_dir HCZGU.CAZyme --db_dir db --input_format NCBI
+    run_dbcan CAZyme_annotation --input_raw_data HTOOS.faa --mode protein --output_dir HTOOS.CAZyme --db_dir db
+    run_dbcan CAZyme_annotation --input_raw_data HCZGU.faa --mode protein --output_dir HCZGU.CAZyme --db_dir db
 
 Two arguments are required for ``run_dbcan``: the input sequence file (faa files) and the sequence type (protein).
 By default, ``run_dbcan`` will use three methods (``pyHMMER`` vs ``dbCAN HMMdb``, ``DIAMOND`` vs ``CAZy``, ``pyHMMER`` vs ``dbCAN-sub HMMdb``) for
@@ -247,8 +247,8 @@ The following commands will re-run run_dbcan to not only predict CAZymes but als
 
 .. code-block:: shell
 
-    run_dbcan easy_CGC --input_raw_data HTOOS.faa --mode protein  --output_dir HTOOS.PUL --input_format NCBI --input_gff_format prodigal --input_gff HTOOS.gff --db_dir db
-    run_dbcan easy_CGC --input_raw_data HCZGU.faa --mode protein  --output_dir HCZGU.PUL --input_format NCBI --input_gff_format prodigal --input_gff HCZGU.gff --db_dir db
+    run_dbcan easy_CGC --input_raw_data HTOOS.faa --mode protein  --output_dir HTOOS.PUL --input_format NCBI --gff_type prodigal --input_gff HTOOS.gff --db_dir db
+    run_dbcan easy_CGC --input_raw_data HCZGU.faa --mode protein  --output_dir HCZGU.PUL --input_format NCBI --gff_type prodigal --input_gff HCZGU.gff --db_dir db
 
 .. warning::
 
@@ -285,11 +285,11 @@ P8. Read mapping to all contigs of each sample (TIMING ~10 min)
 
 .. code-block:: shell
 
-    mkdir samfiles 
-    bwa index megahit_HCZGU/HCZGU.contigs.fa 
+    mkdir samfiles
+    bwa index megahit_HCZGU/HCZGU.contigs.fa
     bwa index megahit_HTOOS/HTOOS.contigs.fa
-    bwa mem -t 32 -o samfiles/HCZGU.sam megahit_HCZGU/HCZGU.contigs.fa HCZGU_1_val_1.fq.gz HCZGU_2_val_2.fq.gz 
-    bwa mem -t 32 -o samfiles/HTOOS.sam megahit_HTOOS/HTOOS.contigs.fa HTOOS_1_val_1.fq.gz HTOOS_2_val_2.fq.gz 
+    bwa mem -t 32 -o samfiles/HCZGU.sam megahit_HCZGU/HCZGU.contigs.fa HCZGU_1_val_1.fq.gz HCZGU_2_val_2.fq.gz
+    bwa mem -t 32 -o samfiles/HTOOS.sam megahit_HTOOS/HTOOS.contigs.fa HTOOS_1_val_1.fq.gz HTOOS_2_val_2.fq.gz
 
 
 
@@ -312,12 +312,12 @@ P10. Read count calculation for all proteins of each sample using dbcan_utils (T
 
 .. code-block:: shell
 
-    mkdir HCZGU_abund && cd HCZGU_abund 
-    dbcan_utils cal_coverage -g ../HCZGU.gff -i  ../samfiles/HCZGU.bam -o HCZGU.depth.txt -t 6 --overlap_base_ratio 0.2 --mapping_quality 30 --identity 0.98  
+    mkdir HCZGU_abund && cd HCZGU_abund
+    dbcan_utils cal_coverage -g ../HCZGU.gff -i  ../samfiles/HCZGU.bam -o HCZGU.depth.txt -t 6 --overlap_base_ratio 0.2 --mapping_quality 30 --identity 0.98
 
-    cd .. && mkdir HTOOS_abund && cd HTOOS_abund 
-    dbcan_utils cal_coverage -g ../HTOOS.fix.gff -i ../samfiles/HTOOS.bam -o HTOOS.depth.txt -t 6 --overlap_base_ratio 0.2 --mapping_quality 30 --identity 0.98  
-    cd .. 
+    cd .. && mkdir HTOOS_abund && cd HTOOS_abund
+    dbcan_utils cal_coverage -g ../HTOOS.fix.gff -i ../samfiles/HTOOS.bam -o HTOOS.depth.txt -t 6 --overlap_base_ratio 0.2 --mapping_quality 30 --identity 0.98
+    cd ..
 
 
 P11. Read count calculation for a given region of contigs using Samtools (TIMING ~1min)
@@ -325,8 +325,8 @@ P11. Read count calculation for a given region of contigs using Samtools (TIMING
 
 .. code-block:: shell
 
-    cd HCZGU_abund 
-    samtools depth -r k141_1169008:2-5684 ../samfiles/HCZGU.bam > HCZGU.cgc.depth.txt 
+    cd HCZGU_abund
+    samtools depth -r k141_1169008:2-5684 ../samfiles/HCZGU.bam > HCZGU.cgc.depth.txt
 
 
 The parameter -r k141_1169008:2-5684 specifies a region in a contig. For any CGC, its positional range can be found in the file
@@ -340,19 +340,19 @@ P12. dbcan_utils to calculate the abundance of CAZyme families, subfamilies, CGC
 
 .. code-block:: shell
 
-    dbcan_utils fam_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM 
-    dbcan_utils fam_substrate_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM 
-    dbcan_utils CGC_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM 
-    dbcan_utils CGC_substrate_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM 
+    dbcan_utils fam_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM
+    dbcan_utils fam_substrate_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM
+    dbcan_utils CGC_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM
+    dbcan_utils CGC_substrate_abund -bt HCZGU.depth.txt -i ../HCZGU.dbCAN -a TPM
 
 .. code-block:: shell
 
-    cd .. && cd HTOOS_abund 
-    dbcan_utils fam_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM 
-    dbcan_utils fam_substrate_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM 
-    dbcan_utils CGC_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM 
-    dbcan_utils CGC_substrate_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM 
-    cd .. 
+    cd .. && cd HTOOS_abund
+    dbcan_utils fam_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM
+    dbcan_utils fam_substrate_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM
+    dbcan_utils CGC_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM
+    dbcan_utils CGC_substrate_abund -bt HTOOS.depth.txt -i ../HTOOS.dbCAN -a TPM
+    cd ..
 
 We developed a set of Python scripts as ``dbcan_utils`` (included in the ``run_dbcan`` package) to take the raw read counts for all genes as input and output the normalized abundances (refer to Box 7) of CAZyme families, subfamilies, CGCs, and substrates (see Fig. 4). The parameter ``-a TPM`` can also be set to two other metrics: RPM, or RPKM61.
 
@@ -405,7 +405,7 @@ P13. Heatmap for CAZyme substrate abundance across samples (TIMING 1min)
 
 .. code-block:: shell
 
-    dbcan_plot heatmap_plot --samples HCZGU,HTOOS -i HCZGU_abund/fam_substrate_abund.out,HTOOS_abund/fam_substrate_abund.out --show_abund --top 20 
+    dbcan_plot heatmap_plot --samples HCZGU,HTOOS -i HCZGU_abund/fam_substrate_abund.out,HTOOS_abund/fam_substrate_abund.out --show_abund --top 20
 
 Here we plot the top 20 substrates in the two samples. The input files are the two CAZyme substrate abundance files calculated based on dbCAN-sub result. The default heatmap is ranked by substrate abundances. To rank the heatmap according to abundance profile using the function clustermap of seaborn package, users can invoke the ``--cluster_map`` parameter.
 
@@ -426,7 +426,7 @@ P15. Synteny plot between a CGC and its best PUL hit with read mapping coverage 
 
 .. code-block:: shell
 
-    dbcan_plot CGC_synteny_coverage_plot -i HCZGU.dbCAN --readscount HCZGU_abund/HCZGU.cgc.depth.txt --cgcid '‘k141_1169008|CGC1'  
+    dbcan_plot CGC_synteny_coverage_plot -i HCZGU.dbCAN --readscount HCZGU_abund/HCZGU.cgc.depth.txt --cgcid '‘k141_1169008|CGC1'
 
 The ``HCZGU.dbCAN`` folder contains the ``PUL_blast.out`` file. Using this file, the ``cgc_standard.out`` file,
 and the best PUL's ``gff`` file in ``dbCAN-PUL.tar.gz``, the CGC_synteny_plot method will create the ``CGC-PUL synteny plot``.
@@ -443,16 +443,16 @@ If users only want to plot the CGC structure plus the read mapping coverage:
 
 .. code-block:: shell
 
-    dbcan_plot CGC_coverage_plot -i HCZGU.dbCAN --cgcid 'k141_1169008|CGC1'  --readscount HCZGU_abund/HCZGU.cgc.depth.txt 
+    dbcan_plot CGC_coverage_plot -i HCZGU.dbCAN --cgcid 'k141_1169008|CGC1'  --readscount HCZGU_abund/HCZGU.cgc.depth.txt
 
 If users only want to plot the synteny between the CGC and PUL:
 
 .. code-block:: shell
 
-    dbcan_plot CGC_synteny_plot -i HCZGU.dbCAN --cgcid 'k141_1169008|CGC1'  
+    dbcan_plot CGC_synteny_plot -i HCZGU.dbCAN --cgcid 'k141_1169008|CGC1'
 
 
 .. warning::
 
     The CGC IDs in different samples do not match each other. For example, specifying -i HCZGU.dbCAN is to plot the 'k141_1169008|CGC1' in the HCZGU sample.
-    The 'k141_1169008|CGC1' in the HTOOS sample most likely does not exist, and even it does, the CGC has a different sequence even if the ID is the same. 
+    The 'k141_1169008|CGC1' in the HTOOS sample most likely does not exist, and even it does, the CGC has a different sequence even if the ID is the same.

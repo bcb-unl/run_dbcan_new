@@ -14,18 +14,6 @@ Here we show all the steps in one line of command.
 We provide multiple example data sets for users to test the tool suite. The example data sets are available in the `example_data` directory.
 
 
-We currently support configuration using anaconda and pip.
-
-.. hint::
-  we didn't ask the users to git clone all repo from the github because we've uploaded it to the Pypi, and the users can install it by pip.
-  Users need to prepare the environmental files, which could be downloaded from the github repo. We provide the environmental files in the `envs` folder, and could also be found directly in this link:
-  prepare the conda environment (available at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs)
-
-.. code-block:: shell
-
-  conda env create -f environment.yml
-  conda activate run_dbcan
-
 
 1. Running Example Data for CAZyme Annotation
 -----------------------------------------------
@@ -36,7 +24,7 @@ To run the dbCAN tool suite on the `Escherichia coli Strain MG1655`_ example dat
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.fna -O EscheriaColiK12MG1655.fna
 
-    run_dbcan easy_CAZyme --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna --db_dir db
+    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna --db_dir db
 
 .. _Escherichia coli Strain MG1655: https://www.ncbi.nlm.nih.gov/nuccore/U00096.2
 
@@ -46,7 +34,7 @@ For the protein sequence input, use the following command (Please note that the 
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.faa -O EscheriaColiK12MG1655.faa
 
-    run_dbcan easy_CAZyme --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa --db_dir db --input_format NCBI
+    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa --db_dir db --input_format NCBI
 
 We also provide eukaryotes example data sets. For example, to run the dbCAN tool suite on the `Xylona heveae TC161`_ example data, use the following command:
 
@@ -54,7 +42,7 @@ We also provide eukaryotes example data sets. For example, to run the dbCAN tool
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa -O Xylona_heveae_TC161.faa
 
-    run_dbcan easy_CAZyme --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa --db_dir db  --input_format NCBI
+    run_dbcan CAZyme_annotation --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa --db_dir db
 
 .. _Xylona heveae TC161: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/
 
@@ -64,11 +52,11 @@ And JGI dataset `Xylhe1`_:
 
     wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.aa.fasta -O Xylhe1_GeneCatalog_proteins_20130827.aa.fasta
 
-    run_dbcan easy_CAZyme --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa --db_dir db  --input_format JGI
+    run_dbcan CAZyme_annotation --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa --db_dir db
 
 .. _Xylhe1: https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html
 
-2. Understanding the Output
+1. Understanding the Output
 ---------------------------
 
 After running the tool, several output files are generated in the output folder, each with specific information:
@@ -76,10 +64,10 @@ After running the tool, several output files are generated in the output folder,
 **uniInput.faa**
   The unified input file for subsequent tools, created by Prodigal if a nucleotide sequence is used, or provided by the user as protein sequence.
 
-**dbCAN-sub.substrate.tsv**
+**dbCANsub_hmm_results.tsv**
   Output from the pyHMMER using dbCAN_sub-HMM.
 
-**diamond_results.tsv**
+**diamond.out**
   Results from the Diamond BLAST using CAZy.faa.
 
 **dbCAN_hmm_results.tsv**
@@ -128,13 +116,13 @@ including the output files from the previous step, and new outputs:
 **non_CAZyme.faa**
   The non-CAZyme protein sequences extracted from uniInput.faa, which is based on the overview results.
 
-**TC_results.tsv**
+**diamond.out.tc**
   Results from the Diamond BLAST using TCDB to annotate transporter protein.
 
-**TF_results.tsv**
+**TF_hmm_results.tsv**
   Results from the pyHMMER using TF-HMM to annotate transcription factor protein.
 
-**STP_results.tsv**
+**STP_hmm_results.tsv**
   Results from the pyHMMER using STP-HMM to annotate signal transduction protein.
 
 **total_cgc_info.tsv**
@@ -179,7 +167,7 @@ including the output files from the previous step, and new outputs:
 ---------------------------
 including the output files from the previous step, and new outputs:
 
-**substrate.out**
+**substrate_prediction.tsv**
   The final output of substrate prediction, which includes the substrate prediction results of each CAZyme gene cluster.
 
 **PUL_blast.out**
@@ -187,3 +175,4 @@ including the output files from the previous step, and new outputs:
 
 **synteny_pdf/**
   The synteny plot folder including predicted results. The plot shows the gene cluster mapping between PULs and CGCs.
+

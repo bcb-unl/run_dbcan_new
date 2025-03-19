@@ -17,6 +17,4 @@ dependencies:
   - biopython=1.84
   - pysam
   - seaborn
-  - pip
-  - pip:
-    - run-dbcan-new
+  - dbcan==5.0.0

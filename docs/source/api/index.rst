@@ -7,7 +7,7 @@ run_dbcan Command Line Interface
 .. click:: dbcan.main:cli
    :prog: run_dbcan
    :nested: full
-   
+
 
 Subcommands
 -----------
@@ -21,3 +21,4 @@ Subcommands
    cgc_finder
    substrate_prediction
    cgc_circle_plot
+   easy_workflow

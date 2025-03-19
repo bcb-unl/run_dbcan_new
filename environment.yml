@@ -6,7 +6,5 @@ channels:
 dependencies:
   - python>=3.10
   - diamond
-  - pip
-  - pip:
-      - run-dbcan-new
+  - dbcan==5.0.0
 

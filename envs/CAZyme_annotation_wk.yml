@@ -24,7 +24,4 @@ dependencies:
   - megahit
   - kraken2
   - krakentools
-  - pip
-  - pip:
-    - run-dbcan-new
-  
+  - dbcan==5.0.0
