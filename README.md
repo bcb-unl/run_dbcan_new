@@ -21,6 +21,14 @@
   <a href="https://github.com/linnabrown/run_dbcan/actions/workflows/test.yaml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/linnabrown/run_dbcan/test.yaml?branch=master&style=for-the-badge&logo=github&label=Test&labelColor=363a4f&color=a6d189"></a>
 </p>
 
+## Update
+
+3/16/2025:
+1. Rewrite the structure of run_dbcan_new (suggested by Haidong), using object-oriented programming (OOP) to improve maintainability and readability. 
+2. Added new function: cgc_circle, which can visualize CGC in genome.
+
+**Future plans** Add prediction of food consumption through CAZyme. If you have new suggestions, please contact yyin@unl.edu (Dr. Yanbin Yin), xzhang55@huskers.unl.edu (Xinpeng Zhang), Haidong Yi (hyi@stjude.org)
+
 ## Introduction
 
 **Notice**

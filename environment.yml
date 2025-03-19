@@ -4,10 +4,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.12
+  - python>=3.10
   - diamond
-  - pip
-  - pip:
-    - run-dbcan-new
-  
+  - dbcan==5.0.0
 
