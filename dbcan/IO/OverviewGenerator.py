@@ -14,7 +14,7 @@ from dbcan.constants import (OVERVIEW_FILE, NON_CAZYME_FAA_FILE, INPUT_PROTEIN_N
                            TARGET_FROM_FIELD, TARGET_TO_FIELD, I_EVALUE_FIELD,
                            CAZY_ID_FIELD, SUBFAMILY_EC_FIELD, OVERVIEW_OVERLAP_THRESHOLD,
                            MIN_TOOLS_FOR_RECOMMENDATION, CAZY_ID_PATTERN,
-                           RESULT_SEPARATOR, EC_SEPARATOR, RANGE_SEPARATOR)
+                           RESULT_SEPARATOR, EC_SEPARATOR)
 
 class OverviewGenerator:
     """Generate overview of CAZyme annotations using template method pattern"""
