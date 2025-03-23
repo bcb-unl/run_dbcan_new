@@ -15,7 +15,7 @@ We provide multiple example data sets for users to test the tool suite. The exam
 
 
 
-1. Running Example Data for CAZyme Annotation
+1.1 Running Example Data for CAZyme Annotation
 -----------------------------------------------
 
 To run the dbCAN tool suite on the `Escherichia coli Strain MG1655`_ example data, use the following command. The input file `EscheriaColiK12MG1655.fna` represents the FASTA format complete genome DNA sequence.
@@ -56,7 +56,7 @@ And JGI dataset `Xylhe1`_:
 
 .. _Xylhe1: https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html
 
-1. Understanding the Output
+1.2 Understanding the Output
 ---------------------------
 
 After running the tool, several output files are generated in the output folder, each with specific information:
@@ -78,7 +78,7 @@ After running the tool, several output files are generated in the output folder,
 
 
 
-3. Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues. Here we download the gff files.)
+2.1 Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues. Here we download the gff files.)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 .. code-block:: shell
 
@@ -108,7 +108,7 @@ After running the tool, several output files are generated in the output folder,
 
 
 
-4. Understanding the Output
+2.2 Understanding the Output
 ---------------------------
 
 including the output files from the previous step, and new outputs:
@@ -135,7 +135,7 @@ including the output files from the previous step, and new outputs:
   The standard output of CGCFinder.
 
 
-1. Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues.)
+3.1 Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues.)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 .. code-block:: shell
@@ -163,7 +163,7 @@ including the output files from the previous step, and new outputs:
 
 
 
-1. Understanding the Output
+3.2 Understanding the Output
 ---------------------------
 including the output files from the previous step, and new outputs:
 
