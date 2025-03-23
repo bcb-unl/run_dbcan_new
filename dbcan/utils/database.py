@@ -4,8 +4,8 @@ import logging
 import tarfile
 from tqdm import tqdm
 from dbcan.parameter import DBDownloaderConfig
-from dbcan.constants import (CAZY_DB_URL, HMMER_DB_URL, DBCAN_SUB_DB_URL, 
-                            DBCAN_SUB_MAP_URL, TCDB_DB_URL, TF_DB_URL, 
+from dbcan.constants import (CAZY_DB_URL, HMMER_DB_URL, DBCAN_SUB_DB_URL,
+                            DBCAN_SUB_MAP_URL, TCDB_DB_URL, TF_DB_URL,
                             STP_DB_URL, PUL_DB_URL, PUL_MAP_URL, PUL_ALL_URL)
 
 class DBDownloader:
@@ -27,7 +27,7 @@ class DBDownloader:
             "CAZy.dmnd": CAZY_DB_URL,
             "dbCAN.hmm": HMMER_DB_URL,
             "dbCAN-sub.hmm": DBCAN_SUB_DB_URL,
-            "substrate-mappings.tsv": DBCAN_SUB_MAP_URL,
+            "fam-substrate-mapping.tsv": DBCAN_SUB_MAP_URL,
             "TCDB.dmnd": TCDB_DB_URL,
             "TF.hmm": TF_DB_URL,
             "STP.hmm": STP_DB_URL,

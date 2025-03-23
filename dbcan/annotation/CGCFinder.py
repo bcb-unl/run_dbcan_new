@@ -3,11 +3,23 @@ import numpy as np
 import os
 import logging
 from dbcan.parameter import CGCFinderConfig
-from dbcan.constants import GFF_COLUMNS
+from dbcan.constants import (GFF_COLUMNS, CGC_CORE_SIG_TYPES, CGC_DEFAULT_NULL_GENE,
+                              CGC_DEFAULT_BP_DISTANCE, CGC_DEFAULT_USE_NULL_GENES,
+                              CGC_DEFAULT_USE_DISTANCE, CGC_DEFAULT_ADDITIONAL_GENES,
+                              CGC_GFF_FILE, CGC_RESULT_FILE, CGC_OUTPUT_COLUMNS,
+                              CGC_ANNOTATION_COLUMN, ATTRIBUTES_COLUMN,
+                              PROTEIN_ID_COLUMN, PROTEIN_ID_ATTR, CGC_ANNOTATION_ATTR,
+                              CGC_SELECTED_COLUMNS, IS_CORE_COLUMN,
+                              IS_ADDITIONAL_COLUMN, IS_SIGNATURE_COLUMN,
+                              CONTIG_ID_COLUMN, START_COLUMN, END_COLUMN,
+                              STRAND_COLUMN, CGC_ID_FIELD, CGC_PROTEIN_ID_FIELD,
+                              GENE_TYPE_FIELD, GENE_START_FIELD,
+                              GENE_STOP_FIELD, GENE_STRAND_FIELD,
+                              GENE_ANNOTATION_FIELD, NULL_GENE_TYPE)
 
 class CGCFinder:
     """CGCFinder"""
-    
+
     def __init__(self, config: CGCFinderConfig):
         """Initialize the CGCFinder with configuration."""
         self.config = config
@@ -15,60 +27,60 @@ class CGCFinder:
 
     def _setup_processor(self):
         """setup the processor with derived attributes"""
-        # 基本属性
+        # basic attributes
         self.output_dir = self._derive_output_dir()
         self.filename = self._derive_filename()
-        
-        # CGC查找参数
+
+        # attributes for CGC cluster identification
         self.num_null_gene = self._derive_num_null_gene()
         self.base_pair_distance = self._derive_base_pair_distance()
         self.use_null_genes = self._derive_use_null_genes()
         self.use_distance = self._derive_use_distance()
         self.additional_genes = self._derive_additional_genes()
-        
-        # 验证必需的属性
+
+        # verify attributes
         self._validate_attributes()
-    
+
     def _validate_attributes(self):
         """check if required attributes are set and output directory exists"""
         required_attrs = ['output_dir', 'filename']
-        
+
         for attr in required_attrs:
             if getattr(self, attr, None) is None:
                 raise ValueError(f"Required attribute '{attr}' was not properly set")
-        
+
         # ensure output directory exists
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir, exist_ok=True)
             logging.info(f"Created output directory: {self.output_dir}")
-    
+
     def _derive_output_dir(self):
         """generate output directory from config"""
         return self.config.output_dir
-    
+
     def _derive_filename(self):
         """generate filename from config"""
-        return os.path.join(self.output_dir, 'cgc.gff')
-    
+        return os.path.join(self.output_dir, CGC_GFF_FILE)
+
     def _derive_num_null_gene(self):
         """generate the maximum number of null genes allowed between signature genes"""
-        return getattr(self.config, 'num_null_gene', 2)
-    
+        return getattr(self.config, 'num_null_gene', CGC_DEFAULT_NULL_GENE)
+
     def _derive_base_pair_distance(self):
         """generate the maximum base pair distance between signature genes"""
-        return getattr(self.config, 'base_pair_distance', 15000)
-    
+        return getattr(self.config, 'base_pair_distance', CGC_DEFAULT_BP_DISTANCE)
+
     def _derive_use_null_genes(self):
         """control whether to consider null genes in the distance calculation"""
-        return getattr(self.config, 'use_null_genes', True)
-    
+        return getattr(self.config, 'use_null_genes', CGC_DEFAULT_USE_NULL_GENES)
+
     def _derive_use_distance(self):
         """consider distance between signature genes when identifying clusters"""
-        return getattr(self.config, 'use_distance', False)
-    
+        return getattr(self.config, 'use_distance', CGC_DEFAULT_USE_DISTANCE)
+
     def _derive_additional_genes(self):
         """generate additional genes to be considered as signature genes"""
-        return getattr(self.config, 'additional_genes', ['TC', 'TF', 'STP'])
+        return getattr(self.config, 'additional_genes', CGC_DEFAULT_ADDITIONAL_GENES)
 
     def read_gff(self):
         """read GFF file and extract relevant information"""
@@ -76,18 +88,18 @@ class CGCFinder:
             if not os.path.exists(self.filename):
                 logging.error(f"GFF file not found: {self.filename}")
                 return False
-                
+
             logging.info(f"Reading GFF file: {self.filename}")
             self.df = pd.read_csv(self.filename, sep='\t', names=GFF_COLUMNS, comment='#')
-            
+
             # extract relevant columns
-            self.df['CGC_annotation'] = self.df['attributes'].apply(
-                lambda x: dict(item.split('=') for item in x.split(';') if '=' in item).get('CGC_annotation', '')
+            self.df[CGC_ANNOTATION_COLUMN] = self.df[ATTRIBUTES_COLUMN].apply(
+                lambda x: dict(item.split('=') for item in x.split(';') if '=' in item).get(CGC_ANNOTATION_ATTR, '')
             )
-            self.df['Protein_ID'] = self.df['attributes'].apply(
-                lambda x: dict(item.split('=') for item in x.split(';') if '=' in item).get('protein_id', '')
+            self.df[PROTEIN_ID_COLUMN] = self.df[ATTRIBUTES_COLUMN].apply(
+                lambda x: dict(item.split('=') for item in x.split(';') if '=' in item).get(PROTEIN_ID_ATTR, '')
             )
-            self.df = self.df[['Contig ID', 'start', 'end', 'strand', 'CGC_annotation', 'Protein_ID']]
+            self.df = self.df[CGC_SELECTED_COLUMNS]
             logging.info(f"Loaded {len(self.df)} records from GFF file")
             return True
         except Exception as e:
@@ -102,14 +114,14 @@ class CGCFinder:
             if not hasattr(self, 'df') or self.df.empty:
                 logging.error("No GFF data loaded. Run read_gff() first.")
                 return False
-                
-            core_sig_types = ['CAZyme']
-            self.df['is_core'] = self.df['CGC_annotation'].str.contains('|'.join(core_sig_types), na=False)
-            self.df['is_additional'] = self.df['CGC_annotation'].str.contains('|'.join(self.additional_genes), na=False)
-            self.df['is_signature'] = self.df['is_core'] | self.df['is_additional']
-            
-            sig_gene_count = self.df['is_signature'].sum()
-            logging.info(f"Marked {sig_gene_count} signature genes ({self.df['is_core'].sum()} core, {self.df['is_additional'].sum()} additional)")
+
+            core_sig_types = CGC_CORE_SIG_TYPES
+            self.df[IS_CORE_COLUMN] = self.df[CGC_ANNOTATION_COLUMN].str.contains('|'.join(core_sig_types), na=False)
+            self.df[IS_ADDITIONAL_COLUMN] = self.df[CGC_ANNOTATION_COLUMN].str.contains('|'.join(self.additional_genes), na=False)
+            self.df[IS_SIGNATURE_COLUMN] = self.df[IS_CORE_COLUMN] | self.df[IS_ADDITIONAL_COLUMN]
+
+            sig_gene_count = self.df[IS_SIGNATURE_COLUMN].sum()
+            logging.info(f"Marked {sig_gene_count} signature genes ({self.df[IS_CORE_COLUMN].sum()} core, {self.df[IS_ADDITIONAL_COLUMN].sum()} additional)")
             return True
         except Exception as e:
             logging.error(f"Error marking signature genes: {str(e)}")
@@ -123,21 +135,21 @@ class CGCFinder:
             if not hasattr(self, 'df') or self.df.empty:
                 logging.error("No GFF data loaded or no signature genes marked.")
                 return []
-                
+
             clusters = []
             cgc_id = 1
-            
+
             logging.info(f"Finding CGC clusters using {self.num_null_gene} max null genes, {self.base_pair_distance} bp distance")
             logging.info(f"Use null genes: {self.use_null_genes}, Use distance: {self.use_distance}")
 
-            for contig, contig_df in self.df.groupby('Contig ID'):
-                sig_indices = contig_df[contig_df['is_signature']].index.to_numpy()
-                
+            for contig, contig_df in self.df.groupby(CONTIG_ID_COLUMN):
+                sig_indices = contig_df[contig_df[IS_SIGNATURE_COLUMN]].index.to_numpy()
+
                 if len(sig_indices) < 2:
                     continue  # need at least 2 signature genes to form a cluster
-                    
-                starts = contig_df.loc[sig_indices, 'start'].to_numpy()
-                ends = contig_df.loc[sig_indices, 'end'].to_numpy()
+
+                starts = contig_df.loc[sig_indices, START_COLUMN].to_numpy()
+                ends = contig_df.loc[sig_indices, END_COLUMN].to_numpy()
 
                 last_index = None
                 start_index = None
@@ -177,21 +189,21 @@ class CGCFinder:
 
     def validate_cluster(self, cluster_df):
         """validate if a cluster meets the criteria for being a CGC"""
-        has_core = cluster_df['is_core'].any()
-        has_additional = cluster_df['is_additional'].any()
-        return (has_core and has_additional) or (has_core and cluster_df['is_core'].sum() > 1)
+        has_core = cluster_df[IS_CORE_COLUMN].any()
+        has_additional = cluster_df[IS_ADDITIONAL_COLUMN].any()
+        return (has_core and has_additional) or (has_core and cluster_df[IS_CORE_COLUMN].sum() > 1)
 
     def process_cluster(self, cluster_df, cgc_id):
         """format a cluster for output"""
         return [{
-            'CGC#': f'CGC{cgc_id}',
-            'Gene Type': gene['CGC_annotation'].split('|')[0] if '|' in gene['CGC_annotation'] else 'null',
-            'Contig ID': gene['Contig ID'],
-            'Protein ID': gene['Protein_ID'],
-            'Gene Start': gene['start'],
-            'Gene Stop': gene['end'],
-            'Gene Strand': gene['strand'],
-            'Gene Annotation': gene['CGC_annotation']
+            CGC_ID_FIELD: f'CGC{cgc_id}',
+            GENE_TYPE_FIELD: gene[CGC_ANNOTATION_COLUMN].split('|')[0] if '|' in gene[CGC_ANNOTATION_COLUMN] else NULL_GENE_TYPE,
+            CONTIG_ID_COLUMN: gene[CONTIG_ID_COLUMN],
+            CGC_PROTEIN_ID_FIELD: gene[PROTEIN_ID_COLUMN],
+            GENE_START_FIELD: gene[START_COLUMN],
+            GENE_STOP_FIELD: gene[END_COLUMN],
+            GENE_STRAND_FIELD: gene[STRAND_COLUMN],
+            GENE_ANNOTATION_FIELD: gene[CGC_ANNOTATION_COLUMN]
         } for _, gene in cluster_df.iterrows()]
 
     def output_clusters(self, clusters):
@@ -200,19 +212,18 @@ class CGCFinder:
             if not clusters:
                 logging.warning("No CGC clusters found to output")
                 # generate empty file
-                empty_df = pd.DataFrame(columns=['CGC#', 'Gene Type', 'Contig ID', 'Protein ID', 
-                                               'Gene Start', 'Gene Stop', 'Gene Strand', 'Gene Annotation'])
-                output_path = os.path.join(self.output_dir, 'cgc_standard_out.tsv')
+                empty_df = pd.DataFrame(columns=CGC_OUTPUT_COLUMNS)
+                output_path = os.path.join(self.output_dir, CGC_RESULT_FILE)
                 empty_df.to_csv(output_path, sep='\t', index=False)
                 logging.info(f"Empty CGC output file created at {output_path}")
                 return
-                
+
             rows = []
             for cluster in clusters:
                 rows.extend(cluster)
-                
+
             df_output = pd.DataFrame(rows)
-            output_path = os.path.join(self.output_dir, 'cgc_standard_out.tsv')
+            output_path = os.path.join(self.output_dir, CGC_RESULT_FILE)
             df_output.to_csv(output_path, sep='\t', index=False)
             logging.info(f"CGC clusters have been written to {output_path}")
         except Exception as e:

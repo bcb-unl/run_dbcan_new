@@ -9,6 +9,14 @@ import math
 import json
 import time
 from dbcan.parameter import CGCSubstrateConfig
+from dbcan.constants import (CAZYME, TC, TF, STP, PUL, NULL,CGC_RESULT_FILE,
+                             DBCAN_SUB_OUT_FILE,OVERVIEW_FILE,INPUT_PROTEIN_NAME,
+                             CGC_SUB_PREDICTION_FILE,PUL_DIAMOND_FILE,CGC_FAA_FILE,
+                             PUL_DIAMOND_DB,PUL_EXCEL_FILE,DBCANPUL_TMP,DBCAN_SUB_TMP,
+                             DIAMOND_PUL_EVALUE,
+                             PUL_DIAMOND_FILE,CAZYME_FAA_FILE,PUL_EXCEL_FILE,PUL_FAA_FILE
+)
+
 #ROOT_FOLDR = "/mnt/raid5-1/jinfang/dbCAN3/db/"
 
 def Sum_bitscore(genes):
@@ -57,13 +65,13 @@ class blastp_hit(object):
         sseqids = self.sseqid.split(":")
         qtype = qseqids[3]
         stype = sseqids[5]
-        if qtype == "CAZyme":
+        if qtype == CAZYME:
             families = ";".join(qseqids[4:])
             qseqid = qseqids[2] + "|" + qseqids[3] + "|" + families
         else:
             qseqid = qseqids[2] + "|" + qseqids[3]
 
-        if stype == "CAZyme":
+        if stype == CAZYME:
             sseqid = sseqids[0] + "|" + sseqids[5] + "|" +  sseqids[6].replace("|",";")
         else:
             sseqid = sseqids[0] + "|" + sseqids[5]
@@ -84,10 +92,10 @@ class Gene(object):
         self.end =      int(lines[5])
         self.strand =   lines[6]
         ### for top3 if type == "TC" ##revised format for the new cgc_standard_out
-        if self.type == "TC":
+        if self.type == TC:
             self.Protein_Fam = ".".join(lines[7].split("|")[1].split(".")[0:3])
-        elif self.type == "null":
-            self.Protein_Fam = "null"
+        elif self.type == NULL:
+            self.Protein_Fam = NULL
         else:
             self.Protein_Fam =    lines[7].split("|")[1]
 
@@ -122,13 +130,13 @@ class dbCAN_Out(object):
     def __iter__(self):
         return iter(self.genes)
 
-    def Out_Null_gene(self,label="null",filename="out"):
+    def Out_Null_gene(self,label=NULL,filename="out"):
         with open(filename,'w') as f:
             for gene in self:
                 if gene.type == label:
                     f.write(gene.Protein_ID+"\n")
 
-    def Out_Null_gene_array(self,label="null"):
+    def Out_Null_gene_array(self,label=NULL):
         return [gene.Protein_ID for gene in self if gene.type == label]
 
     def CGCID2genes(self):
@@ -161,7 +169,7 @@ class CGC(object):
 
     def clean_signature(self,prot2domain):
         for gene in self:
-            if gene.type == "CAZyme":
+            if gene.type == CAZYME:
                 gene.Protein_Fam = "|".join(prot2domain.get(gene.Protein_ID,[]))
 
     def Out2file(self,fasta):
@@ -183,8 +191,8 @@ class CGC(object):
     def get_proteinfam_assign_null(self,pfam):
         contents = []
         for gene in self:
-            if gene.type == "null":
-                domains = pfam.get(gene.Protein_ID,"null")
+            if gene.type == NULL:
+                domains = pfam.get(gene.Protein_ID,NULL)
                 contents.append(domains)
             else:
                 contents.append(gene.Protein_Fam)
@@ -195,7 +203,7 @@ class CGC(object):
 
 
     def get_protein_null(self):
-        return [gene.Protein_ID for gene in self if gene.type == "null"]
+        return [gene.Protein_ID for gene in self if gene.type == NULL]
 
     def get_proteinID(self):
         return [gene.Protein_ID for gene in self ]
@@ -204,7 +212,7 @@ class CGC(object):
     def __len__(self):
         return len(self.genes)
 
-    def get_CAZyme_num(self,orders=["CAZyme","TC","TF","STP","null"]):
+    def get_CAZyme_num(self,orders=[CAZYME,TC,TF,STP,NULL]):
         types = self.get_cgc_CAZyme()
         return [str(types.count(tmp)) for tmp in orders]
 
@@ -307,34 +315,33 @@ class dbCAN_substrate_prediction:
         self.config = config
         self.input_folder = config.output_dir
 #        self.cgc_out = self.input_folder + "cgc.out"
-        self.cgc_standard_out = os.path.join(self.input_folder , "cgc_standard_out.tsv")
-        self.dbsub_out = os.path.join(self.input_folder ,"dbCANsub_hmm_results.tsv")
-        self.overview_txt = os.path.join(self.input_folder ,"overview.tsv" )
-        self.protein_db     = os.path.join(self.input_folder ,"uniInput.faa")
-
+        self.cgc_standard_out = os.path.join(self.input_folder , CGC_RESULT_FILE)
+        self.dbsub_out = os.path.join(self.input_folder ,DBCAN_SUB_OUT_FILE)
+        self.overview_txt = os.path.join(self.input_folder ,OVERVIEW_FILE )
+        self.protein_db     = os.path.join(self.input_folder ,INPUT_PROTEIN_NAME)
         ### output
-        self.out = os.path.join(self.input_folder,"substrate_prediction.tsv" )
+        self.out = os.path.join(self.input_folder,CGC_SUB_PREDICTION_FILE )
         self.random_str = uuid.uuid4().hex ### tmp folder to save some tmp files
         #self.random_str = "59f220bd5fc4422187679301976a3d76" ## for debug
         #self.tmp_folder = "/dev/shm/" + self.random_str ### tmp folder to save some tmp files
         self.tmp_folder = self.input_folder
-        self.tmp_blastp_out = os.path.join(self.tmp_folder , "PUL_blast.out")
-        self.tmp_CAZyme_pep = os.path.join(self.tmp_folder, "CGC.faa")
+        self.tmp_blastp_out = os.path.join(self.tmp_folder , PUL_DIAMOND_FILE)
+        self.tmp_CAZyme_pep = os.path.join(self.tmp_folder, CGC_FAA_FILE)
 
         ### parameters
         #self.PULdb  = f"{ROOT_FOLDR}PUL.faa"
         self.db_dir = config.db_dir
-        self.PULdb_diamond  = os.path.join(self.db_dir, "PUL.dmnd")
+        self.PULdb_diamond  = os.path.join(self.db_dir, PUL_DIAMOND_DB)
 
-        self.pul_excel_filename = os.path.join(self.db_dir, "dbCAN-PUL.xlsx")
+        self.pul_excel_filename = os.path.join(self.db_dir, PUL_EXCEL_FILE)
         self.homologous_parameters  = HitParamter(config)
         self.dbsub_parameters  = dbcan_sub_parameter(config)
 
         ### output parameters, intermediate results
         self.odbcan_sub = config.odbcan_sub
         self.odbcanpul = config.odbcanpul
-        self.dbcanpul_tmp = "dbcanpul.tmp.txt"
-        self.dbcan_sub_tmp = "dbcansubpul.tmp.txt"
+        self.dbcanpul_tmp = DBCANPUL_TMP
+        self.dbcan_sub_tmp = DBCAN_SUB_TMP
 
         ### Method to predict substrate
         self.run_dbCAN_sub = True
@@ -408,7 +415,7 @@ class dbCAN_substrate_prediction:
         SeqIO.write(self.seqs,self.tmp_CAZyme_pep,'fasta')
 
         outfmt = "6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qlen slen"
-        self.diamond_command = f"diamond blastp --max-hsps 1 --query {self.tmp_CAZyme_pep} --db {self.PULdb_diamond} --evalue 0.01 --out {self.tmp_blastp_out} --threads {os.cpu_count()} -f {outfmt} --quiet"
+        self.diamond_command = f"diamond blastp --max-hsps 1 --query {self.tmp_CAZyme_pep} --db {self.PULdb_diamond} --evalue {DIAMOND_PUL_EVALUE}--out {self.tmp_blastp_out} --threads {os.cpu_count()} -f {outfmt} --quiet"
         #self.blastp_command = f"blastp -max_hsps 1 -query {self.tmp_CAZyme_pep} -db {self.PULdb} -outfmt {outfmt} -evalue 0.01 -out {self.tmp_blastp_out} -num_threads 32 "
         #print(self.blastp_command)
         print(self.diamond_command)
@@ -458,7 +465,7 @@ class dbCAN_substrate_prediction:
         self.hitdict = querydict
 
     def Uniq_blastp_hit(self,blast_list):
-        uniqs = []; genes = []; uniqss = [];
+        uniqs = []; genes = []; uniqss = [];  ### for homologous pairs
         ### hit types, CAZy
         homologous_pairs = []
         for tmp in blast_list:
@@ -867,11 +874,12 @@ def cgc_prediction_webserver(args,sub_pred):
 
     ### update parameters
     sub_pred.tmp_folder = args.workdir ### tmp folder to save some tmp files
-    sub_pred.tmp_blastp_out = sub_pred.tmp_folder + "PUL_blast.out"
-    sub_pred.tmp_CAZyme_pep = sub_pred.tmp_folder + "CAZyme.faa"
-
-    sub_pred.PULdb  = f"{script_folder}/PUL.faa"
-    sub_pred.pul_excel_filename = f"{script_folder}/dbCAN-PUL.xlsx"
+    sub_pred.tmp_blastp_out = sub_pred.tmp_folder + PUL_DIAMOND_FILE
+    sub_pred.tmp_CAZyme_pep = sub_pred.tmp_folder + CAZYME_FAA_FILE
+    #sub_pred.PULdb  = f"{script_folder}/PUL.faa"
+    sub_pred.PULdb  = os.path.join(script_folder,PUL_FAA_FILE)
+    #sub_pred.pul_excel_filename = f"{script_folder}/dbCAN-PUL.xlsx"
+    sub_pred.pul_excel_filename = os.path.join(script_folder,PUL_EXCEL_FILE)
 
     ### loading parameters file from php blast.php named with parameters.json
     parameter_file = "parameters.json"
