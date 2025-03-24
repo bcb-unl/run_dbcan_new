@@ -48,7 +48,7 @@ jobs:
                 auto-activate-base: false
                 python-version: ${{ matrix.python }}
                 channels: conda-forge, bioconda, defaults
-                environment-file: env/test_environment.yml
+                environment-file: envs/test_environment.yml
                 activate-environment: test_dbcan
 
             - name: Install dependencies

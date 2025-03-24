@@ -4,4 +4,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=$PYTHON_VERSION
   - diamond
+  - pytest
