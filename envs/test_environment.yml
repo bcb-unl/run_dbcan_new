@@ -1,7 +1,7 @@
-name: run_dbcan_env
+name: test_dbcan
 channels:
   - bioconda
   - conda-forge
   - defaults
 dependencies:
-  - dbcan==5.0.0
+  - diamond
