@@ -392,6 +392,10 @@ DBCAN_SUB_SUBSTRATE_COLUMN = "Substrate"
 
 # Collection of all columns in final output
 DBCAN_SUB_COLUMN_NAMES = [
+    DBCAN_SUB_SUBFAMILY_NAME_COLUMN,
+    DBCAN_SUB_SUBFAMILY_COMP_COLUMN,
+    DBCAN_SUB_SUBFAMILY_EC_COLUMN,
+    DBCAN_SUB_SUBSTRATE_COLUMN,
     DBCAN_SUB_HMM_LENGTH_COLUMN,
     DBCAN_SUB_TARGET_NAME_COLUMN,
     DBCAN_SUB_TARGET_LENGTH_COLUMN,
@@ -401,11 +405,24 @@ DBCAN_SUB_COLUMN_NAMES = [
     DBCAN_SUB_TARGET_FROM_COLUMN,
     DBCAN_SUB_TARGET_TO_COLUMN,
     DBCAN_SUB_COVERAGE_COLUMN,
-    DBCAN_SUB_HMM_FILE_COLUMN,
-    DBCAN_SUB_SUBFAMILY_NAME_COLUMN,
-    DBCAN_SUB_SUBFAMILY_COMP_COLUMN,
-    DBCAN_SUB_SUBFAMILY_EC_COLUMN,
-    DBCAN_SUB_SUBSTRATE_COLUMN
+    DBCAN_SUB_HMM_FILE_COLUMN
+]
+
+dbCAN_sub_COLUMN_NAMES = [
+    'Subfam Name',
+    'Subfam Composition',
+    'Subfam EC',
+    'Substrate',
+    'HMM Length',
+    'Target Name',
+    'Target Length',
+    'i-Evalue',
+    'HMM From',
+    'HMM To',
+    'Target From',
+    'Target To',
+    'Coverage',
+    'HMM File Name'
 ]
 
 # Special family prefixes
