@@ -78,15 +78,14 @@ jobs:
       - name: Docker image inspection
         run: |
           echo "📝 Image Details:"
-          echo "  ${{ steps.meta.outputs.tags }}"
-          docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:{{ steps.meta.outputs.tags }} | head -n 1 | cut -d ':' -f 2
 
       - name: Update deployment status
         run: |
           echo "🚀 Successfully deployed image"
-          echo "📦 Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo "📦 Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:{{ steps.meta.outputs.tags }} | head -n 1 | cut -d ':' -f 2"
           echo "🔗 Docker pull command:"
-          echo "    docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+          echo "    docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:{{ steps.meta.outputs.tags }} | head -n 1 | cut -d ':' -f 2"
           echo "💻 Supported architectures:"
           echo "    - linux/amd64 (Intel/AMD 64-bit)"
           echo "    - linux/arm64 (ARM 64-bit / Apple Silicon)"
