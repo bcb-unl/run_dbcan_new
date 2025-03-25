@@ -54,13 +54,9 @@ jobs:
             - name: Install dependencies
               run: |
                     pip install pytest
-                    pip install ${{ matrix.pip-flags }} ".[dev,test]"
+                    pip install -e ".[dev,test]"
 
-
-            - name: build dbCAN database
-              run: |
-                    run_dbcan database --db_dir db
 
             - name: run dbCAN test
               run: |
-                    pytest tests/test_dbcan.py
+                    pytest tests/test_dbcan.py -v
