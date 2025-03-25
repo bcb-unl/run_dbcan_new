@@ -265,9 +265,9 @@ DBCAN_HMM_RESULT_FILE = DBCAN_HMM_RESULT_FILE
 
 # Column names and data structures
 OVERVIEW_COLUMNS = ['Gene ID', 'EC#', 'dbCAN_hmm', 'dbCAN_sub', 'DIAMOND', '#ofTools', 'Recommend Results']
-DIAMOND_COLUMN_NAMES = ['Gene ID', 'CAZy ID']
-DBCAN_SUB_COLUMN_NAMES = ['Target Name', 'Subfam Name', 'Subfam EC', 'Target From', 'Target To', 'i-Evalue']
-DBCAN_HMM_COLUMN_NAMES = ['Target Name', 'HMM Name', 'Target From', 'Target To', 'i-Evalue']
+DIAMOND_COLUMN_NAMES_OVERVIEW = ['Gene ID', 'CAZy ID']
+DBCAN_SUB_COLUMN_NAMES_OVERVIEW = ['Target Name', 'Subfam Name', 'Subfam EC', 'Target From', 'Target To', 'i-Evalue']
+DBCAN_HMM_COLUMN_NAMES_OVERVIEW = ['Target Name', 'HMM Name', 'Target From', 'Target To', 'i-Evalue']
 
 # Special fields and values
 GENE_ID_FIELD = "Gene ID"
@@ -408,22 +408,22 @@ DBCAN_SUB_COLUMN_NAMES = [
     DBCAN_SUB_HMM_FILE_COLUMN
 ]
 
-dbCAN_sub_COLUMN_NAMES = [
-    'Subfam Name',
-    'Subfam Composition',
-    'Subfam EC',
-    'Substrate',
-    'HMM Length',
-    'Target Name',
-    'Target Length',
-    'i-Evalue',
-    'HMM From',
-    'HMM To',
-    'Target From',
-    'Target To',
-    'Coverage',
-    'HMM File Name'
-]
+# dbCAN_sub_COLUMN_NAMES = [
+#     'Subfam Name',
+#     'Subfam Composition',
+#     'Subfam EC',
+#     'Substrate',
+#     'HMM Length',
+#     'Target Name',
+#     'Target Length',
+#     'i-Evalue',
+#     'HMM From',
+#     'HMM To',
+#     'Target From',
+#     'Target To',
+#     'Coverage',
+#     'HMM File Name'
+# ]
 
 # Special family prefixes
 DBCAN_SUB_CBM_PREFIX = "CBM"

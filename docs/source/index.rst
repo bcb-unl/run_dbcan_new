@@ -1,37 +1,61 @@
 User Guide
 ==========
 
-Update: This is the new version of run_dbCAN. We add multiple new features and improve the performance of the pipeline. The new version is more user-friendly and more efficient.
-We recommend users to use the new version of run_dbCAN. If you have any questions or suggestions, please feel free to contact us.
+Update: What's New in run_dbCAN
+================================
 
-All conda environments can be found at https://github.com/bcb-unl/run_dbcan_new/tree/master/envs
+The new version of **run_dbCAN** introduces multiple new features and significant performance improvements, making the pipeline more user-friendly and efficient. We highly recommend users to upgrade to this version. If you have any questions or suggestions, please feel free to [contact us](mailto:support@dbcan.org).
 
-1. Add a function for downloading database files which is simpler than before.
+All conda environments can be found at the following link:
+`run_dbCAN Conda Environments <https://github.com/bcb-unl/run_dbcan_new/tree/master/envs>`_
 
-2. Import pyrodigal (https://pyrodigal.readthedocs.io/en/stable/) instead of prodigal for input processing, besides, add function for data preprocessing, and now  run_dbCAN could support prodigal format, JGI format, and NCBI format with setting parameter.
+Key Features and Improvements
+-----------------------------
 
-3. Import pyHMMER (https://pyhmmer.readthedocs.io/en/stable/) instead of HMMER, which is more efficient and speeds up than HMMER.  Redesigned memory usage, now can use less memory, or high memory + high efficiency.
+1. **Simplified Database Downloading**
+   Added a new function for downloading database files, making the process simpler than before.
 
-4. Re-organized the logic and structure of run_dbCAN. Now we split functions into each module and use “CLASS” to handle it, which is easier to update and control. Besides, use python to rewrite almost non-python codes and it's more readable.  Use config to organize all parameters.
+2. **Enhanced Input Processing**
+   - Replaced `prodigal` with `pyrodigal` ([documentation](https://pyrodigal.readthedocs.io/en/stable/)) for input processing.
+   - Added support for multiple input formats, including Prodigal, JGI, and NCBI formats, with configurable parameters.
 
-5. Use pandas for data processing.
+3. **Improved HMMER Performance**
+   - Replaced `HMMER` with `pyHMMER` ([documentation](https://pyhmmer.readthedocs.io/en/stable/)), which is faster and more efficient.
+   - Redesigned memory usage to support both low-memory and high-efficiency modes.
 
-6. Add coverage justifications and location information in dbCAN-sub.
+4. **Modular Code Structure**
+   - Reorganized the logic and structure of `run_dbCAN` by splitting functions into modules and using Python classes for better maintainability.
+   - Rewrote non-Python code in Python for improved readability.
+   - Centralized parameter management using configuration files.
 
-7. Add CAZyme justification in the final result (extra column called "Best Results).
+5. **Data Processing with Pandas**
+   Leveraged the power of `pandas` for efficient data processing.
 
-8. Added a lot of log processing and time reporting, making it more user-friendly.
+6. **Enhanced dbCAN-sub Features**
+   - Added coverage justifications and location information.
+   - Included CAZyme justification in the final results with an extra column called "Best Results."
 
-9. Re-design the CGCFinder (Now support JGI, NCBI, prodigal formats, and could directly search eukaryotes such as fungi genomes).
+7. **Improved Logging and Time Reporting**
+   Added extensive logging and time reporting to make the pipeline more user-friendly.
 
-10. Change the blastp search to DIAMOND search in substrate prediction part, which is faster and more efficient.
+8. **Redesigned CGCFinder**
+   - Now supports JGI, NCBI, and Prodigal formats.
+   - Directly searches eukaryotic genomes, including fungi.
 
-11. Update steps for metagenomic data protocols.
+9. **Faster Substrate Prediction**
+   Replaced `blastp` with `DIAMOND` for substrate prediction, significantly improving speed and efficiency.
 
-Hint:If you want to run from raw reads from metagenome, please refer to Run from Raw Reads: Automated CAZyme and Glycan Substrate Annotation in Microbiomes: A Step-by-Step Protocol.
-Otherwise, please refer to any following instruction. Please note that some of the precomputed results have different names from the previous version.
+10. **Updated Metagenomic Protocols**
+    Improved steps for metagenomic data processing.
 
+**Hint:**
+If you want to run the pipeline from raw metagenomic reads, please refer to the following guide:
+*Run from Raw Reads: Automated CAZyme and Glycan Substrate Annotation in Microbiomes: A Step-by-Step Protocol.*
 
+Otherwise, refer to the instructions below. Please note that some precomputed results may have different names compared to the previous version.
+
+.. note::
+   For detailed instructions, refer to the respective sections in the documentation.
 
 .. toctree::
    :maxdepth: 1

@@ -1,6 +1,10 @@
 Easy Workflow
 ====================
 
+
+easy_CGC
+----------------
+
 Perform a complete process from input FASTA file to CGC annotation.
 
 .. click:: dbcan.main:cli
@@ -19,6 +23,9 @@ Example Usage
    run_dbcan easy_CGC --mode protein --input_raw_data test.fasta --output_dir test --db_dir db --input_gff test.gff  --gff_type JGI/NCBI_prok/NCBI_euk/prodigal (choose your format)
    run_dbcan easy_CGC --mode prok --input_raw_data test.fna --output_dir test --db_dir db --input_gff test/uniInput.gff  --gff_type JGI/NCBI_prok/NCBI_euk/prodigal (choose your format)
 
+
+easy_substrate
+----------------
 Perform a complete process from input FASTA file to substrate prediction.
 
 .. click:: dbcan.main:cli
@@ -33,6 +40,7 @@ Example Usage
 
 
 .. code-block:: bash
+
    run_dbcan easy_substrate --mode protein --input_raw_data test.fasta --output_dir test --db_dir db --input_gff test.gff  --gff_type JGI/NCBI_prok/NCBI_euk/prodigal (choose your format)
    run_dbcan easy_substrate --mode prok --input_raw_data test.fna --output_dir test --db_dir db --input_gff test/uniInput.gff  --gff_type JGI/NCBI_prok/NCBI_euk/prodigal (choose your format)
 

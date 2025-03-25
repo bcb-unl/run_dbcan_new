@@ -6,8 +6,8 @@ from dbcan.parameter import OverviewGeneratorConfig
 from Bio import SeqIO
 from dbcan.constants import (OVERVIEW_FILE, NON_CAZYME_FAA_FILE, INPUT_PROTEIN_NAME,
                            DIAMOND_RESULT_FILE, DBCAN_SUB_RESULT_FILE, DBCAN_HMM_RESULT_FILE,
-                           OVERVIEW_COLUMNS, DIAMOND_COLUMN_NAMES, DBCAN_SUB_COLUMN_NAMES,
-                           DBCAN_HMM_COLUMN_NAMES, GENE_ID_FIELD, EC_FIELD, DBCAN_HMM_FIELD,
+                           OVERVIEW_COLUMNS, DIAMOND_COLUMN_NAMES_OVERVIEW, DBCAN_SUB_COLUMN_NAMES_OVERVIEW,
+                           DBCAN_HMM_COLUMN_NAMES_OVERVIEW, GENE_ID_FIELD, EC_FIELD, DBCAN_HMM_FIELD,
                            DBCAN_SUB_FIELD, DIAMOND_FIELD, TOOLS_COUNT_FIELD,
                            RECOMMEND_RESULTS_FIELD, EMPTY_RESULT_PLACEHOLDER,
                            SUBFAMILY_NAME_FIELD, HMM_NAME_FIELD, TARGET_NAME_FIELD,
@@ -67,9 +67,9 @@ class OverviewGenerator:
     def _derive_column_names(self):
         """Derive column names for annotation results"""
         return {
-            'diamond': DIAMOND_COLUMN_NAMES,
-            'dbcan_sub': DBCAN_SUB_COLUMN_NAMES,
-            'dbcan_hmm': DBCAN_HMM_COLUMN_NAMES
+            'diamond': DIAMOND_COLUMN_NAMES_OVERVIEW,
+            'dbcan_sub': DBCAN_SUB_COLUMN_NAMES_OVERVIEW,
+            'dbcan_hmm': DBCAN_HMM_COLUMN_NAMES_OVERVIEW
         }
 
     def _derive_input_total_faa(self):
