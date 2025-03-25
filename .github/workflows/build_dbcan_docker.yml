@@ -57,6 +57,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
 
+
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v5
@@ -76,6 +78,7 @@ jobs:
       - name: Docker image inspection
         run: |
           echo "📝 Image Details:"
+          echo "  ${{ steps.meta.outputs.tags }}"
           docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Update deployment status
