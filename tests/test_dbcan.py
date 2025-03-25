@@ -2,6 +2,7 @@ import os
 import pytest
 from click.testing import CliRunner
 from pathlib import Path
+from unittest.mock import patch, MagicMock
 
 from dbcan.main import cli
 
@@ -21,35 +22,36 @@ def runner():
     return CliRunner()
 
 
-# Integration test with database creation in test
-def test_easy_substrate_integration(runner, tmp_path):
-    """
-    Integration test for easy_substrate command with database created within the test.
-    """
-    # Create temporary directories
+# Mock database creation
+@pytest.fixture
+def mock_db_dir(tmp_path):
+    """Create a mock database directory with necessary files"""
     db_dir = tmp_path / "db"
     db_dir.mkdir()
+
+    # Create mock database files
+    (db_dir / "CAZy.dmnd").touch()
+    (db_dir / "dbCAN.hmm").touch()
+    (db_dir / "dbCAN-sub.hmm").touch()
+
+    return str(db_dir)
+
+
+# Integration test with mocked database creation
+@patch('dbcan.core.run_dbCAN_input_process', return_value=None)
+@patch('dbcan.core.run_dbCAN_CAZyme_annotation', return_value=None)
+@patch('dbcan.core.run_dbCAN_CGCFinder_preprocess', return_value=None)
+@patch('dbcan.core.run_dbCAN_CGCFinder', return_value=None)
+@patch('dbcan.core.run_dbCAN_CGCFinder_substrate', return_value=None)
+@patch('dbcan.core.run_dbcan_syn_plot', return_value=None)
+def test_easy_substrate_cmd(mock_plot, mock_substrate, mock_cgc, mock_preprocess, mock_annotation, mock_input, runner, mock_db_dir, tmp_path):
+    """
+    Integration test for easy_substrate command with mocked database creation.
+    """
+    # Create temporary output directory
     output_dir = tmp_path / "output"
     output_dir.mkdir()
-
-    # Convert to string paths for commands
-    db_dir_str = str(db_dir)
     output_dir_str = str(output_dir)
-
-    # Print test setup info
-    print(f"Setting up test database in: {db_dir_str}")
-
-    # Build database directly in test
-    db_result = runner.invoke(cli, [
-        'database',
-        '--db_dir', db_dir_str
-    ])
-
-    # Check if database command succeeded
-    if db_result.exit_code != 0:
-        print(f"Database build failed: {db_result.output}")
-        print(f"Exception: {db_result.exception}")
-        pytest.skip("Failed to build database, skipping test")
 
     # Verify test files exist
     assert os.path.exists(TEST_PROTEIN), f"Test protein file not found at {TEST_PROTEIN}"
@@ -59,10 +61,10 @@ def test_easy_substrate_integration(runner, tmp_path):
     print(f"Running test with:")
     print(f"  TEST_PROTEIN: {TEST_PROTEIN}")
     print(f"  TEST_GFF: {TEST_GFF}")
-    print(f"  db_dir: {db_dir_str}")
+    print(f"  db_dir: {mock_db_dir}")
     print(f"  output_dir: {output_dir_str}")
 
-    # Run actual command (without mocking)
+    # Run actual command (with mocking)
     result = runner.invoke(cli, [
         'easy_substrate',
         '--mode', 'protein',
@@ -70,7 +72,8 @@ def test_easy_substrate_integration(runner, tmp_path):
         '--input_gff', TEST_GFF,
         '--gff_type', 'NCBI_prok',
         '--output_dir', output_dir_str,
-        '--db_dir', db_dir_str
+        '--db_dir', mock_db_dir,
+        '--threads', '4'
     ])
 
     # Print output if there was an error
