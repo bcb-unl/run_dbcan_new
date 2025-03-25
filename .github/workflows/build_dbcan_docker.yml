@@ -76,13 +76,14 @@ jobs:
       - name: Docker image inspection
         run: |
           echo "📝 Image Details:"
-          docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}
+          docker buildx imagetools inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Update deployment status
         run: |
-          echo "📦 Image: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}"
+          echo "🚀 Successfully deployed image"
+          echo "📦 Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           echo "🔗 Docker pull command:"
-          echo "    docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}"
+          echo "    docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           echo "💻 Supported architectures:"
           echo "    - linux/amd64 (Intel/AMD 64-bit)"
           echo "    - linux/arm64 (ARM 64-bit / Apple Silicon)"
