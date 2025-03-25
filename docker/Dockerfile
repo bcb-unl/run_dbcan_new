@@ -29,7 +29,7 @@ LABEL about.license="MIT"
 COPY --from=source /opt/conda/envs/run_dbcan /opt/conda/envs/run_dbcan
 
 # Won't be activated unless you we login via /bin/bash command
-# RUN echo "micromamba activate fastcat" >> ~/.bashrc
+# RUN echo "micromamba activate run_dbcan" >> ~/.bashrc
 
 # set fastcat as the default environment
 # !!! this step is important or you cannot packages installed in this environment

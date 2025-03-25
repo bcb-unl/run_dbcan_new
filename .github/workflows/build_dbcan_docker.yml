@@ -42,12 +42,12 @@ jobs:
 
       - name: Read version file
         id: get_version
-        run: echo "version=$(cat ${{ matrix.app }}/version)" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat docker/version)" >> $GITHUB_OUTPUT
 
       - name: Check if files changed
         id: files_changed
         run: |
-          if git diff-tree --no-commit-id --name-only -r HEAD | grep -q "^${{ matrix.app }}/"; then
+          if git diff-tree --no-commit-id --name-only -r HEAD | grep -q "^docker/"; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -57,7 +57,7 @@ jobs:
         if: ${{ steps.files_changed.outputs.changed == 'true' }}
         uses: docker/build-push-action@v4
         with:
-          context: ${{ matrix.app }}
+          context: docker
           platforms: ${{ matrix.platforms }}
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/${{ matrix.app }}:${{ steps.get_version.outputs.version }}
