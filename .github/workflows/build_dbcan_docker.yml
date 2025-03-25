@@ -26,7 +26,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: arm64,amd64,ppc64le,s390x
+          platforms: arm64,amd64
 
 
       - name: Set up Docker Buildx
@@ -80,7 +80,6 @@ jobs:
 
       - name: Update deployment status
         run: |
-          echo "🚀 Successfully deployed version ${{ steps.get_version.outputs.version }}"
           echo "📦 Image: ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}"
           echo "🔗 Docker pull command:"
           echo "    docker pull ${{ env.REGISTRY }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ steps.get_version.outputs.version }}"
