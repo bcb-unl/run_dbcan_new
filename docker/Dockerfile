@@ -5,8 +5,8 @@ USER $MAMBA_USER
 # set work directory
 WORKDIR /tmp
 
-# copy environment file
-COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+# copy environment file, change the path from outer directory to "docker" directory
+COPY --chown=$MAMBA_USER:$MAMBA_USER docker/environment.yml /tmp/environment.yml
 
 # create environment from yml file
 RUN micromamba env create -f environment.yml \

@@ -63,9 +63,14 @@ jobs:
         with:
           context: .
           file: ${{ env.DOCKER_DIR }}/Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          no-cache: false
+          platforms: linux/amd64,linux/arm64
+          outputs: type=image,name=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          build-args: |
+            CONDA_ENV_PATH=/opt/conda/envs/run_dbcan
 
 
       - name: Docker image inspection
