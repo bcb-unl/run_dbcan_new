@@ -70,8 +70,7 @@ def test_easy_substrate_integration(runner, tmp_path):
         '--input_gff', TEST_GFF,
         '--gff_type', 'NCBI_prok',
         '--output_dir', output_dir_str,
-        '--db_dir', db_dir_str,
-        '--threads', '4'  # 减少线程数以提高CI稳定性
+        '--db_dir', db_dir_str
     ])
 
     # Print output if there was an error
