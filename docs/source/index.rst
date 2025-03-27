@@ -4,53 +4,72 @@ User Guide
 Update: What's New in run_dbCAN
 ================================
 
-The new version of **run_dbCAN** introduces multiple new features and significant performance improvements, making the pipeline more user-friendly and efficient. We highly recommend users to upgrade to this version. If you have any questions or suggestions, please feel free to [contact us](mailto:support@dbcan.org).
+The new version of **run_dbCAN** introduces multiple new features and significant performance improvements, making the pipeline more user-friendly and efficient. We highly recommend users to upgrade to this version.
+If you have any questions or suggestions, please feel free to contact us:
 
-All conda environments can be found at the following link:
+* Dr. Yanbin Yin, Professor, (yyin@unl.edu)
+* Xinpeng Zhang, PhD Student, (xzhang55@huskers.unl.edu)
+* Dr. Haidong Yi, Bioinformatics Scientist, (hyi@stjude.org)
+
+All conda environments dependencies can be found at the following link:
 `run_dbCAN Conda Environments <https://github.com/bcb-unl/run_dbcan_new/tree/master/envs>`_
+
 
 Key Features and Improvements
 -----------------------------
 
 1. **Simplified Database Downloading**
-   Added a new function for downloading database files, making the process simpler than before.
+
+   - Added a new function for downloading database files, making the process simpler than before.
 
 2. **Enhanced Input Processing**
+
    - Replaced `prodigal` with `pyrodigal` ([documentation](https://pyrodigal.readthedocs.io/en/stable/)) for input processing.
-   - Added support for multiple input formats, including Prodigal, JGI, and NCBI formats, with configurable parameters.
 
 3. **Improved HMMER Performance**
+
    - Replaced `HMMER` with `pyHMMER` ([documentation](https://pyhmmer.readthedocs.io/en/stable/)), which is faster and more efficient.
-   - Redesigned memory usage to support both low-memory and high-efficiency modes.
+
+   - Redesigned memory usage to support both low-memory and high-efficiency modes (https://pyhmmer.readthedocs.io/en/stable/examples/performance_tips.html).
 
 4. **Modular Code Structure**
-   - Reorganized the logic and structure of `run_dbCAN` by splitting functions into modules and using Python classes for better maintainability.
+
+   - Reorganized the logic and structure of `run_dbCAN` by splitting functions into modules and following Object Oriented Programming.
+
    - Rewrote non-Python code in Python for improved readability.
+
    - Centralized parameter management using configuration files.
 
-5. **Data Processing with Pandas**
-   Leveraged the power of `pandas` for efficient data processing.
+   - Leveraged the power of `pandas` for efficient data processing.
 
-6. **Enhanced dbCAN-sub Features**
-   - Added coverage justifications and location information.
+   - Added extensive logging and time reporting to make the pipeline more user-friendly.
+
+5. **Enhanced dbCAN-sub and overview Features**
+
+   - Added coverage justifications and location information for dbCAN-sub.
+
    - Included CAZyme justification in the final results with an extra column called "Best Results."
 
-7. **Improved Logging and Time Reporting**
-   Added extensive logging and time reporting to make the pipeline more user-friendly.
+   - Now follow the rule: `CAZy-sub > dbCAN-sub > dbCAN-fam` for the final results.
 
-8. **Redesigned CGCFinder**
-   - Now supports JGI, NCBI, and Prodigal formats.
-   - Directly searches eukaryotic genomes, including fungi.
 
-9. **Faster Substrate Prediction**
-   Replaced `blastp` with `DIAMOND` for substrate prediction, significantly improving speed and efficiency.
+6. **Redesigned CGCFinder**
 
-10. **Updated Metagenomic Protocols**
-    Improved steps for metagenomic data processing.
+   - Now supports JGI, NCBI, and Prodigal gff formats.
 
-**Hint:**
-If you want to run the pipeline from raw metagenomic reads, please refer to the following guide:
-*Run from Raw Reads: Automated CAZyme and Glycan Substrate Annotation in Microbiomes: A Step-by-Step Protocol.*
+   - Directly searches eukaryotic genomes, including fungi (**beta function**).
+
+7.  **Faster Substrate Prediction**
+   - Replaced `blastp` with `DIAMOND` for substrate prediction, significantly improving speed and efficiency.
+
+8.  **Updated Metagenomic Protocols**
+   - Improved steps for metagenomic data processing (https://www.biorxiv.org/content/10.1101/2024.01.10.575125v1).
+
+.. hint::
+
+If you want to run the pipeline from raw metagenomic reads, please refer to the following part:
+**metagenomics_pipeline**
+
 
 Otherwise, refer to the instructions below. Please note that some precomputed results may have different names compared to the previous version.
 
@@ -83,13 +102,6 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
    :caption: API
 
    api/index
-   api/database
-   api/CAZyme_annotation
-   api/gff_process
-   api/cgc_finder
-   api/substrate_prediction
-   api/cgc_circle_plot
-   api/easy_workflow
 
 .. toctree::
    :maxdepth: 1

@@ -1,178 +1,288 @@
-Quick Start
-===========
+Quick Start Guide
+================
 
-This section provides a quick guide to running the run_dbcan tool suite with example data and explains the output files generated.
+This guide helps you get started with run_dbCAN using example data and explains the generated output files.
 
-For the updated run_dbcan, we provide two types of approach for users:
+The tool offers two approaches:
 
-1.Automated analysis that can be done with one line of command.
+1. **Automated analysis** - Complete workflow with a single command
 
-2.One by one command that allows checking problems by breaking down the steps or making autonomous changes to some of the results.
+2. **Step-by-step analysis** - Breaking down the process for troubleshooting or customization
 
-Here we show all the steps in one line of command.
+Here we performed the `Automated analysis`` for each example file. For the `Step-by-step analysis` analysis, please refer to the documentation `user_guide`.
 
-We provide multiple example data sets for users to test the tool suite. The example data sets are available in the `example_data` directory.
+Example Data
+--------------
+
+We provide several example datasets in the `example_data <https://bcb.unl.edu/dbCAN2/download/test/>`_ directory for testing purposes.
 
 
-
-1.1 Running Example Data for CAZyme Annotation
------------------------------------------------
-
-To run the dbCAN tool suite on the `Escherichia coli Strain MG1655`_ example data, use the following command. The input file `EscheriaColiK12MG1655.fna` represents the FASTA format complete genome DNA sequence.
+Database Download
+------------------
+First, download the database files required for the analysis.
+**Make sure you have installed successfully and activated the `run_dbcan` environment.**
 
 .. code-block:: shell
 
+    # Download database files
+    run_dbcan database \
+      --db_dir db
+
+
+CAZyme Annotation
+------------------
+
+Let's annotate Carbohydrate-Active enZYmes (CAZymes) in our example data.
+
+**Example 1: Prokaryotic Genome (DNA)**
+
+.. code-block:: shell
+
+    # Download example prokaryotic genome (E. coli K-12 MG1655)
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.fna -O EscheriaColiK12MG1655.fna
 
-    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna --db_dir db
+    # Run CAZyme annotation
+    run_dbcan CAZyme_annotation \
+      --input_raw_data EscheriaColiK12MG1655.fna \
+      --mode prok \
+      --output_dir output_EscheriaColiK12MG1655_fna \
+      --db_dir db
 
 .. _Escherichia coli Strain MG1655: https://www.ncbi.nlm.nih.gov/nuccore/U00096.2
 
-For the protein sequence input, use the following command (Please note that the input format is needed for the protein sequence only. `NCBI` represents the fasta ID format like NCBI ">WP_000002088.1", and the `JGI` mode represents the fasta ID format like JGI ">jgi|Xylhe1|242238|").:
+**Example 2: Prokaryotic Proteome (Protein)**
 
 .. code-block:: shell
 
+    # Download example prokaryotic proteome
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.faa -O EscheriaColiK12MG1655.faa
 
-    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa --db_dir db --input_format NCBI
+    # Run CAZyme annotation (specify input format for protein sequences)
+    run_dbcan CAZyme_annotation \
+      --input_raw_data EscheriaColiK12MG1655.faa \
+      --mode protein \
+      --output_dir output_EscheriaColiK12MG1655_faa \
+      --db_dir db \
+      --input_format NCBI
 
-We also provide eukaryotes example data sets. For example, to run the dbCAN tool suite on the `Xylona heveae TC161`_ example data, use the following command:
+**Example 3: Eukaryotic Proteome (NCBI)**
 
 .. code-block:: shell
 
+    # Download example eukaryotic proteome
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.faa -O Xylona_heveae_TC161.faa
 
-    run_dbcan CAZyme_annotation --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa --db_dir db
+    # Run CAZyme annotation
+    run_dbcan CAZyme_annotation \
+      --input_raw_data Xylona_heveae_TC161.faa \
+      --mode protein \
+      --output_dir output_Xylona_heveae_TC161_faa \
+      --db_dir db
 
 .. _Xylona heveae TC161: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_001619985.1/
 
-And JGI dataset `Xylhe1`_:
+**Example 4: Eukaryotic Proteome (JGI)**
 
 .. code-block:: shell
 
+    # Download example JGI format proteome
     wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.aa.fasta -O Xylhe1_GeneCatalog_proteins_20130827.aa.fasta
 
-    run_dbcan CAZyme_annotation --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa --db_dir db
+    # Run CAZyme annotation
+    run_dbcan CAZyme_annotation \
+      --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta \
+      --mode protein \
+      --output_dir output_Xylhe1_faa \
+      --db_dir db
 
 .. _Xylhe1: https://mycocosm.jgi.doe.gov/Xylhe1/Xylhe1.home.html
 
-1.2 Understanding the Output
----------------------------
+CAZyme Annotation Output Files
+-----------------------------
 
-After running the tool, several output files are generated in the output folder, each with specific information:
+After running CAZyme annotation, you'll find these output files:
 
-**uniInput.faa**
-  The unified input file for subsequent tools, created by Prodigal if a nucleotide sequence is used, or provided by the user as protein sequence.
+``uniInput.faa``
+    Unified input file for all tools, generated by Prodigal (for nucleotide input) or provided by the user (for protein input).
 
-**dbCANsub_hmm_results.tsv**
-  Output from the pyHMMER using dbCAN_sub-HMM.
+``dbCANsub_hmm_results.tsv``
+    Results from pyHMMER search using dbCAN_sub-HMM database.
 
-**diamond.out**
-  Results from the Diamond BLAST using CAZy.faa.
+``diamond.out``
+    Results from DIAMOND BLAST search against CAZy database.
 
-**dbCAN_hmm_results.tsv**
-  Output from the pyHMMER using dbCAN-HMM..
+``dbCAN_hmm_results.tsv``
+    Results from pyHMMER search using dbCAN-HMM database.
 
-**overview.tsv**
-  Summarizes CAZyme predictions across tools. We recommend results using at least two tools (Shown as the "Recommend Results").
+``overview.tsv``
+    Consolidated summary of CAZyme predictions across all tools. We recommend focusing on results predicted by at least two tools.
 
+CGC (CAZyme Gene Cluster) Annotation
+-----------------------------------
 
+Next, let's identify and analyze CAZyme gene clusters (CGCs).
 
-2.1 Running Example Data for CGC Annotation (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues. Here we download the gff files.)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-.. code-block:: shell
-
-    run_dbcan easy_CGC --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna_CGC --db_dir db --input_gff gff --input_gff_format prodigal
-
+**Example 1: Prokaryotic Genome with Generated GFF**
 
 .. code-block:: shell
 
+    # Run CGC annotation with automatically generated GFF
+    run_dbcan easy_CGC \
+      --input_raw_data EscheriaColiK12MG1655.fna \
+      --mode prok \
+      --output_dir output_EscheriaColiK12MG1655_fna_CGC \
+      --db_dir db \
+      --input_gff gff \
+      --gff_type prodigal
+
+**Example 2: Prokaryotic Proteome with External GFF**
+
+.. code-block:: shell
+
+    # Download example GFF file
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_prok_test/EscheriaColiK12MG1655.gff -O EscheriaColiK12MG1655.gff
 
-    run_dbcan easy_CGC --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa_CGC --db_dir db --input_format NCBI --input_gff EscheriaColiK12MG1655.gff --input_gff_format NCBI_prok
+    # Run CGC annotation with provided GFF
+    run_dbcan easy_CGC \
+      --input_raw_data EscheriaColiK12MG1655.faa \
+      --mode protein \
+      --output_dir output_EscheriaColiK12MG1655_faa_CGC \
+      --db_dir db \
+      --input_format NCBI \
+      --input_gff EscheriaColiK12MG1655.gff \
+      --gff_type NCBI_prok
 
+**Example 3: Eukaryotic Proteome with External GFF**
 
 .. code-block:: shell
 
+    # Download example eukaryotic GFF file
     wget -q https://bcb.unl.edu/dbCAN2/download/test/NCBI_euk_test/Xylona_heveae_TC161.gff -O Xylona_heveae_TC161.gff
 
-    run_dbcan easy_CGC --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa_CGC --db_dir db  --input_format NCBI --input_gff Xylona_heveae_TC161.gff --input_gff_format NCBI_euk
+    # Run CGC annotation
+    run_dbcan easy_CGC \
+      --input_raw_data Xylona_heveae_TC161.faa \
+      --mode protein \
+      --output_dir output_Xylona_heveae_TC161_faa_CGC \
+      --db_dir db \
+      --input_format NCBI \
+      --input_gff Xylona_heveae_TC161.gff \
+      --gff_type NCBI_euk
 
+**Example 4: JGI Format Data**
 
 .. code-block:: shell
 
+    # Download JGI format GFF file
     wget -q https://bcb.unl.edu/dbCAN2/download/test/JGI_test/Xylhe1_GeneCatalog_proteins_20130827.gff -O Xylhe1_GeneCatalog_proteins_20130827.gff
 
-    run_dbcan easy_CGC --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa_CGC --db_dir db  --input_format JGI --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff --input_gff_format JGI
+    # Run CGC annotation
+    run_dbcan easy_CGC \
+      --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta \
+      --mode protein \
+      --output_dir output_Xylhe1_faa_CGC \
+      --db_dir db \
+      --input_format JGI \
+      --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff \
+      --gff_type JGI
 
+CGC Annotation Output Files
+-----------------------------
 
+In addition to the CAZyme annotation outputs, CGC analysis produces:
 
+``non_CAZyme.faa``
+    Non-CAZyme protein sequences extracted from uniInput.faa based on overview results.
 
-2.2 Understanding the Output
----------------------------
+``diamond.out.tc``
+    DIAMOND BLAST results against TCDB for transporter protein annotation.
 
-including the output files from the previous step, and new outputs:
+``TF_hmm_results.tsv``
+    pyHMMER results using TF-HMM database for transcription factor identification.
 
-**non_CAZyme.faa**
-  The non-CAZyme protein sequences extracted from uniInput.faa, which is based on the overview results.
+``STP_hmm_results.tsv``
+    pyHMMER results using STP-HMM for signal transduction protein identification.
 
-**diamond.out.tc**
-  Results from the Diamond BLAST using TCDB to annotate transporter protein.
+``total_cgc_info.tsv``
+    Comprehensive annotation of all signature proteins (CAZymes, TC, TF, STP).
 
-**TF_hmm_results.tsv**
-  Results from the pyHMMER using TF-HMM to annotate transcription factor protein.
+``cgc.gff``
+    Input file for CGCFinder in GFF format, generated from the input GFF and signature annotations.
 
-**STP_hmm_results.tsv**
-  Results from the pyHMMER using STP-HMM to annotate signal transduction protein.
+``cgc_standard_out.tsv``
+    Standard output from CGCFinder showing identified CAZyme gene clusters.
 
-**total_cgc_info.tsv**
-  The total annotation of all signature proteins combing TC, TF, and STP. Using the same overlap method to filter as CAZyme annotation.
+Substrate Prediction
+----------------------
 
-**cgc.gff**
-  The input file of CGCFinder in gff format. This is generated by the tool suite based on the input_gff file and "total_cgc_info.tsv".
+Finally, let's predict substrates for the identified CAZymes and CGCs.
 
-**cgc_standard_out.tsv**
-  The standard output of CGCFinder.
-
-
-3.1 Running Example Data for Substrate Prediction (please check the previous step for downloading example fasta data, we don't repeat it here to avoid issues.)
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-.. code-block:: shell
-
-
-    run_dbcan easy_substrate --input_raw_data EscheriaColiK12MG1655.fna --mode prok --output_dir output_EscheriaColiK12MG1655_fna_sub --db_dir db --input_gff gff --input_gff_format prodigal
-
-
-.. code-block:: shell
-
-    run_dbcan easy_substrate --input_raw_data EscheriaColiK12MG1655.faa --mode protein --output_dir output_EscheriaColiK12MG1655_faa_sub --db_dir db --input_format NCBI --input_gff EscheriaColiK12MG1655.gff --input_gff_format NCBI_prok
-
+**Example 1: Prokaryotic Genome**
 
 .. code-block:: shell
 
+    # Run substrate prediction
+    run_dbcan easy_substrate \
+      --input_raw_data EscheriaColiK12MG1655.fna \
+      --mode prok \
+      --output_dir output_EscheriaColiK12MG1655_fna_sub \
+      --db_dir db \
+      --input_gff gff \
+      --gff_type prodigal
 
-    run_dbcan easy_substrate --input_raw_data Xylona_heveae_TC161.faa --mode protein --output_dir output_Xylona_heveae_TC161_faa_sub --db_dir db  --input_format NCBI --input_gff Xylona_heveae_TC161.gff --input_gff_format NCBI_euk
-
+**Example 2: Prokaryotic Proteome**
 
 .. code-block:: shell
 
-    run_dbcan easy_substrate --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --mode protein --output_dir output_Xylhe1_faa_sub --db_dir db  --input_format JGI --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff --input_gff_format JGI
+    # Run substrate prediction
+    run_dbcan easy_substrate \
+      --input_raw_data EscheriaColiK12MG1655.faa \
+      --mode protein \
+      --output_dir output_EscheriaColiK12MG1655_faa_sub \
+      --db_dir db \
+      --input_format NCBI \
+      --input_gff EscheriaColiK12MG1655.gff \
+      --gff_type NCBI_prok
 
+**Example 3: Eukaryotic Proteome**
 
+.. code-block:: shell
 
+    # Run substrate prediction
+    run_dbcan easy_substrate \
+      --input_raw_data Xylona_heveae_TC161.faa \
+      --mode protein \
+      --output_dir output_Xylona_heveae_TC161_faa_sub \
+      --db_dir db \
+      --input_format NCBI \
+      --input_gff Xylona_heveae_TC161.gff \
+      --gff_type NCBI_euk
 
+**Example 4: JGI Format Data**
 
-3.2 Understanding the Output
----------------------------
-including the output files from the previous step, and new outputs:
+.. code-block:: shell
 
-**substrate_prediction.tsv**
-  The final output of substrate prediction, which includes the substrate prediction results of each CAZyme gene cluster.
+    # Run substrate prediction
+    run_dbcan easy_substrate \
+      --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta \
+      --mode protein \
+      --output_dir output_Xylhe1_faa_sub \
+      --db_dir db \
+      --input_format JGI \
+      --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff \
+      --gff_type JGI
 
-**PUL_blast.out**
-  The DIAMOND blastp results of CGCs against dbCAN-PULs.
+Substrate Prediction Output Files
+-----------------------------------
 
-**synteny_pdf/**
-  The synteny plot folder including predicted results. The plot shows the gene cluster mapping between PULs and CGCs.
+In addition to previous outputs, substrate prediction produces:
+
+``substrate_prediction.tsv``
+    Final output containing predicted substrates for each CAZyme gene cluster.
+
+``PUL_blast.out``
+    DIAMOND blastp results from comparing CGCs against dbCAN-PULs database.
+
+``synteny_pdf/``
+    Directory containing synteny plots showing gene cluster mappings between PULs and CGCs.
 

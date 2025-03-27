@@ -1,23 +1,114 @@
+.. _cazyme-annotation:
+
 CAZyme Annotation
-=========================
+==================
 
-The purpose of this step is to annotate CAZymes based on the input raw data (prokaryotic genome, metagenomics contigs or protein sequences). The input data can be in FASTA format, and the output will be a table with CAZyme annotations. The table will include information such as the CAZyme family, the number of genes, and the location of the genes. The output will also include a summary of the CAZyme annotations.
+Introduction
+-------------
 
-Could use "--methods"  to choose different combination of tools from "diamond", "hmm", and "dbCANsub".
+CAZyme annotation is a critical step in identifying and classifying Carbohydrate-Active Enzymes (CAZymes) in biological sequences. The ``run_dbcan`` tool enables comprehensive annotation of CAZymes from various input types:
 
-.. code-block:: shell
+* Prokaryotic genomes (nucleotide sequences)
+* Metagenomic contigs
+* Protein sequences (prokaryotic or eukaryotic)
 
-    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.fna	 --out_dir output_EscheriaColiK12MG1655_fna --db_dir db --mode prok
+The annotation process integrates multiple analytical tools to ensure high sensitivity and specificity in CAZyme identification.
 
-.. code-block:: shell
-
-    run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.faa   --out_dir output_EscheriaColiK12MG1655_faa --db_dir db --mode protein
-
-.. code-block:: shell
-
-    run_dbcan CAZyme_annotation --input_raw_data Xylona_heveae_TC161.faa --out_dir output_Xylona_heveae_TC161_faa --db_dir db --mode protein
+Command Syntax
+----------------
 
 .. code-block:: shell
 
-    run_dbcan CAZyme_annotation --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --out_dir output_Xylhe1_faa --db_dir db --mode protein
+   run_dbcan CAZyme_annotation --input_raw_data <INPUT_FILE> --out_dir <OUTPUT_DIRECTORY> --db_dir <DATABASE_DIRECTORY> --mode <MODE>
+
+Key Parameters
+~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - ``--input_raw_data``
+     - Path to input sequence file (FASTA format)
+   * - ``--out_dir``
+     - Directory for output files
+   * - ``--db_dir``
+     - Directory containing database files
+   * - ``--mode``
+     - Analysis mode: ``prok`` (prokaryote), ``meta`` (metagenome), or ``protein`` (protein sequences)
+   * - ``--methods``
+     - Optional: Specify tools to use (``diamond``, ``hmm``, and/or ``dbCANsub``, default is ``all``)
+     - usage: ``--methods diamond --methods hmm --methods dbCANsub`` for multiple methods or just choose one/two.
+
+Usage Examples
+---------------
+
+Analyzing Prokaryotic Genomes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When working with bacterial or archaeal genomes, use the ``prok`` mode:
+
+.. code-block:: shell
+
+   run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.fna --out_dir output_EscheriaColiK12MG1655_fna --db_dir db --mode prok
+
+Analyzing Protein Sequences
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For pre-translated protein sequences, use the ``protein`` mode:
+
+.. code-block:: shell
+
+   run_dbcan CAZyme_annotation --input_raw_data EscheriaColiK12MG1655.faa --out_dir output_EscheriaColiK12MG1655_faa --db_dir db --mode protein
+
+Analyzing Eukaryotic Proteins
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Eukaryotic proteins are processed the same way using ``protein`` mode:
+
+.. code-block:: shell
+
+   run_dbcan CAZyme_annotation --input_raw_data Xylona_heveae_TC161.faa --out_dir output_Xylona_heveae_TC161_faa --db_dir db --mode protein
+
+.. code-block:: shell
+
+   run_dbcan CAZyme_annotation --input_raw_data Xylhe1_GeneCatalog_proteins_20130827.aa.fasta --out_dir output_Xylhe1_faa --db_dir db --mode protein
+
+.. tip::
+
+   For large eukaryotic datasets, consider change the computational resources with ``--threads`` to specify the number of CPU cores.
+   The default is ``all cores`` of your machine.
+
+Output Files
+----------
+
+The annotation process generates several key output files in your specified output directory:
+
+* ``uniInput.faa`` - Unified input file for all tools
+* ``overview.txt`` - Summary of identified CAZymes
+* ``dbCAN_hmm_results.tsv`` - Detailed HMMER results
+* ``diamond.out`` - DIAMOND search results
+* ``dbCANsub_hmm_results.tsv`` - dbCAN sub-HMM results including substrate specificity
+
+.. note::
+
+   For details about interpreting the output files, see the :doc:`Output Interpretation <output_interpretation>` section.
+
+Customizing the Analysis
+----------------------
+
+To customize which analytical methods are used:
+
+.. code-block:: shell
+   :caption: Using specific tools
+
+   run_dbcan CAZyme_annotation --input_raw_data input.fna --out_dir output --db_dir db --mode prok --methods hmm --methods diamond
+
+Available method combinations: ``hmm``, ``diamond``, ``dbCANsub``, or any combination.
+
+.. admonition:: Next Steps
+
+   After completing CAZyme annotation, you may want to proceed to :doc:`CGC Analysis <cgc_finder>` to identify CAZyme gene clusters.
 
