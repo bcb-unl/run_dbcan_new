@@ -1,41 +1,99 @@
-Prepare the CGC annotation information
-===========================================
+.. _cgc-information-generation:
 
-A CAZyme gene cluster (CGC) refers to a group of genes co-located on the genome that are collectively involved in the metabolism of carbohydrates. These gene clusters encode enzymes and other proteins that work together to perform specific functions related to carbohydrate processing. The concept of a CAZyme gene cluster is particularly relevant in the context of microbial genomes, where such clusters often play crucial roles in the utilization of diverse carbohydrate sources.
+CAZyme Gene Cluster (CGC) Annotation
+====================================
 
-If users want to predict CGCs, this step will be necessary to focuses on theconvert user submitted gff file into the cgc.gff generationfile. First, it extracteds the non-CAZyme sequences from faa file, and then applied runs DIAMOND to annotate TCs. Next it useds pyhmmer to annotate TFs and STPs. All three results were are combined to and filtered to keep the best hits based on the coverage and evalue (same as dbCAN domain filter rules). Annotations were are labeled added in the user submitted gff file to generate the cgc.gff.
+Introduction
+-------------
 
-For prokaryotic gff:
+A CAZyme Gene Cluster (CGC) refers to a group of genes co-located on the genome that collectively participate in glycan metabolism. These clusters encode various enzymes and regulatory proteins that work together to process specific carbohydrate substrates. CGCs are particularly important in microbial genomes, where they enable efficient utilization of diverse carbohydrate sources in the environment.
 
-If downloaded from NCBI mode: extract the CDS corresponding to the gene to obtain the protein ID, and add it to the gene to obtain the gene information and the corresponding protein ID.
+Generating CGC Information
+---------------------------
 
-If predicted with prodigal mode: directly obtain CDS information.
+To identify and analyze CGCs, users must first prepare annotation information by converting their GFF file into a specialized CGC-ready format. The ``gff_process`` command handles this conversion through several steps:
 
+1. Extracts non-CAZyme sequences from protein files
+2. Uses DIAMOND to annotate Transporters (TCs)
+3. Employs pyHMMER to identify Transcription Factors (TFs) and Signal Transduction Proteins (STPs)
+4. Combines and filters all results based on coverage and e-value thresholds
+5. Integrates these annotations into the user-submitted GFF file to generate a ``cgc.gff`` file
 
+Input GFF File Types
+-----------------------
 
-For eukaryotic gff (beta function, validation is ongoing):
+The processing workflow varies depending on the source and organism type of your GFF file:
 
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
 
-If downloaded from NCBI: extract the mRNA and CDS information corresponding to the gene, obtain the protein ID and add it to the gene; for non-coding genes (such as tRNA), extract the corresponding information and add it to the gene. Finally, the cgc.gff of the complete gene is obtained, which contains all the gene locations and corresponding functions.
+   * - GFF Source
+     - Processing Details
+   * - NCBI Prokaryotic(``--gff_type NCBI_prok``)
+     - Extracts CDS corresponding to genes to obtain protein IDs and merges this information
+   * - Prodigal-generated(``--gff_type prodigal``)
+     - Directly processes CDS information without additional extraction
+   * - NCBI Eukaryotic(``--gff_type NCBI_euk``)
+     - Extracts mRNA and CDS information for coding genes; handles non-coding genes separately (beta feature)
+   * - JGI(``--gff_type JGI``)
+     - Extracts protein IDs corresponding to genes from JGI-formatted annotation
 
-If downloaded from JGI: extract the protein ID corresponding to the gene.
-
+Command Examples
+------------------
 
 .. code-block:: shell
 
-    run_dbcan gff_process --output_dir output_EscheriaColiK12MG1655_faa --db_dir db --input_gff EscheriaColiK12MG1655.gff --gff_type NCBI_prok
+   run_dbcan gff_process --output_dir output_dir --db_dir db --input_gff EscheriaColiK12MG1655.gff --gff_type NCBI_prok
 
 .. code-block:: shell
 
-    run_dbcan gff_process --output_dir output_EscheriaColiK12MG1655_fna/ --db_dir db --input_gff  output_EscheriaColiK12MG1655_fna/uniInput.gff --gff_type prodigal
+   run_dbcan gff_process --output_dir output_dir --db_dir db --input_gff output_dir/uniInput.gff --gff_type prodigal
 
 .. code-block:: shell
 
-    run_dbcan gff_process --output_dir output_Xylona_heveae_TC161_faa/ --db_dir db --input_gff Xylhe1_GeneCatalog_proteins_20130827.gff --gff_type JGI
+   run_dbcan gff_process --output_dir output_dir --db_dir db --input_gff Xylhe1_GeneCatalog_proteins.gff --gff_type JGI
 
 .. code-block:: shell
 
-    run_dbcan gff_process --output_dir output_Xylhe1_faa/ --db_dir db --input_gff Xylona_heveae_TC161.gff  --gff_type NCBI_euk
+   run_dbcan gff_process --output_dir output_dir --db_dir db --input_gff eukaryotic_genome.gff --gff_type NCBI_euk
+
+.. note::
+
+   Eukaryotic GFF processing is currently in beta. While functional, we're still validating and improving this feature.
+
+Key Parameters
+~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - ``--output_dir``
+     - Directory for both input and output files, it is generated from the ``CAZyme annotation`` step
+   * - ``--db_dir``
+     - Directory containing database files, it is generated from the ``database`` step
+   * - ``--input_gff``
+     - Path to your GFF annotation file
+   * - ``--gff_type``
+     - Format of the GFF file: ``NCBI_prok``, ``prodigal``, ``JGI``, or ``NCBI_euk``
+
+
+Output Files
+-------------
+
+The CGC finder generates several output files:
+
+* ``diamond.out.tc`` - DIAMOND output for Transporters (TCs) via TCDB database (https://www.tcdb.org/)
+* ``TF_hmm_results.tsv`` - pyHMMER output for Transcription Factors (TFs) using the TF-HMM database.
+* ``STP_hmm_results.tsv`` - pyHMMER output for Signal Transduction Proteins (STPs) using the STP-HMM database.
+* ``total_cgc_info.tsv`` - Comprehensive table containing all CGC information, including TCs, TFs, and STPs.
+
+.. admonition:: Next Steps
+
+   After generating the CGC annotation information, proceed to :doc:`CGC identification <cgc-finder>` to identify and analyze CAZyme gene clusters in your genome.
 
 
 

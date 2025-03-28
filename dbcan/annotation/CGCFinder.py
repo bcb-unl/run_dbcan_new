@@ -190,8 +190,21 @@ class CGCFinder:
     def validate_cluster(self, cluster_df):
         """validate if a cluster meets the criteria for being a CGC"""
         has_core = cluster_df[IS_CORE_COLUMN].any()
-        has_additional = cluster_df[IS_ADDITIONAL_COLUMN].any()
-        return (has_core and has_additional) or (has_core and cluster_df[IS_CORE_COLUMN].sum() > 1)
+
+        # special case: CAZyme-only mode, need at least 2 CAZymes
+        if len(self.additional_genes) == 1 and self.additional_genes[0] == "CAZyme":
+            cazyme_count = cluster_df[IS_CORE_COLUMN].sum()
+            return has_core and cazyme_count >= 2
+
+        # nomal case: check if all additional genes are present
+        additional_annotations = set()
+        for annotation in cluster_df[cluster_df[IS_ADDITIONAL_COLUMN]][CGC_ANNOTATION_COLUMN]:
+            for gene_type in self.additional_genes:
+                if gene_type in annotation:
+                    additional_annotations.add(gene_type)
+
+        has_all_additional = set(self.additional_genes).issubset(additional_annotations)
+        return (has_core and has_all_additional)
 
     def process_cluster(self, cluster_df, cgc_id):
         """format a cluster for output"""

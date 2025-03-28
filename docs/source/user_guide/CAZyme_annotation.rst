@@ -9,7 +9,7 @@ Introduction
 CAZyme annotation is a critical step in identifying and classifying Carbohydrate-Active Enzymes (CAZymes) in biological sequences. The ``run_dbcan`` tool enables comprehensive annotation of CAZymes from various input types:
 
 * Prokaryotic genomes (nucleotide sequences)
-* Metagenomic contigs
+* Metagenomic contigs (nucleotide sequences)
 * Protein sequences (prokaryotic or eukaryotic)
 
 The annotation process integrates multiple analytical tools to ensure high sensitivity and specificity in CAZyme identification.
@@ -22,7 +22,7 @@ Command Syntax
    run_dbcan CAZyme_annotation --input_raw_data <INPUT_FILE> --out_dir <OUTPUT_DIRECTORY> --db_dir <DATABASE_DIRECTORY> --mode <MODE>
 
 Key Parameters
-~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. list-table::
    :widths: 20 80
@@ -40,7 +40,7 @@ Key Parameters
      - Analysis mode: ``prok`` (prokaryote), ``meta`` (metagenome), or ``protein`` (protein sequences)
    * - ``--methods``
      - Optional: Specify tools to use (``diamond``, ``hmm``, and/or ``dbCANsub``, default is ``all``)
-     - usage: ``--methods diamond --methods hmm --methods dbCANsub`` for multiple methods or just choose one/two.
+       Usage: ``--methods diamond --methods hmm --methods dbCANsub`` for multiple methods or just choose one/two.
 
 Usage Examples
 ---------------
@@ -82,7 +82,7 @@ Eukaryotic proteins are processed the same way using ``protein`` mode:
    The default is ``all cores`` of your machine.
 
 Output Files
-----------
+--------------
 
 The annotation process generates several key output files in your specified output directory:
 
@@ -92,12 +92,8 @@ The annotation process generates several key output files in your specified outp
 * ``diamond.out`` - DIAMOND search results
 * ``dbCANsub_hmm_results.tsv`` - dbCAN sub-HMM results including substrate specificity
 
-.. note::
-
-   For details about interpreting the output files, see the :doc:`Output Interpretation <output_interpretation>` section.
-
 Customizing the Analysis
-----------------------
+----------------------------
 
 To customize which analytical methods are used:
 
@@ -110,5 +106,5 @@ Available method combinations: ``hmm``, ``diamond``, ``dbCANsub``, or any combin
 
 .. admonition:: Next Steps
 
-   After completing CAZyme annotation, you may want to proceed to :doc:`CGC Analysis <cgc_finder>` to identify CAZyme gene clusters.
+   After completing CAZyme annotation, you may want to proceed to :doc:`CGC Information Generation <CGC_information_generation>` to identify CAZyme gene clusters.
 
