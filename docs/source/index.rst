@@ -118,3 +118,17 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
    metagenomics_pipeline/supplement/run_from_raw_reads_sp_co_assem
    metagenomics_pipeline/supplement/run_from_raw_reads_sp_subsample
    metagenomics_pipeline/supplement/run_from_raw_reads_sp_assem_free
+
+.. toctree::
+   :maxdepth: 1
+   :caption: change_logs
+
+   change-logs/index
+
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: references
+
+   references/index

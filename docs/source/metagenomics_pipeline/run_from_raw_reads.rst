@@ -37,7 +37,7 @@ Workflow Steps
     Finally, this step focuses on visualizing the occurrence and abundance results. We provide Python scripts for creating publication-quality plots in PDF format.
 
 
-.. image:: ./_static/img/Picture1.png
+.. image:: ../_static/img/Picture1.png
     :alt: workflow figure
     :width: 800px
     :align: center
@@ -672,7 +672,7 @@ P14. Barplot for CAZyme family/subfamily/EC abundance across samples (Fig. 6B,C)
 .. code-block:: shell
 
     dbcan_plot bar_plot --samples Wet2014,Dry2014 --vertical_bar --top 20 -i Wet2014_abund/fam_abund.out,Dry2014_abund/fam_abund.out --pdf fam_abund.pdf --db_dir db
-    dbcan_plot bar_plot --samples Wet2014,Dry2014 --vertical_bar --top 20 -i Wet2014_abund/subfam_abund.out,Dry2014_abund/subfam_abund.out --pdf subfam_abund.pdf --db_dir db 
+    dbcan_plot bar_plot --samples Wet2014,Dry2014 --vertical_bar --top 20 -i Wet2014_abund/subfam_abund.out,Dry2014_abund/subfam_abund.out --pdf subfam_abund.pdf --db_dir db
     dbcan_plot bar_plot --samples Wet2014,Dry2014 --vertical_bar --top 20 -i Wet2014_abund/EC_abund.out,Dry2014_abund/EC_abund.out --pdf EC_abund.pdf --db_dir db
 
 
@@ -691,7 +691,7 @@ If users only want to plot the CGC structure:
 
 .. code-block:: shell
 
-    dbcan_plot CGC_plot -i Wet2014.dbCAN --cgcid 'k141_41392|CGC3' 
+    dbcan_plot CGC_plot -i Wet2014.dbCAN --cgcid 'k141_41392|CGC3'
 
 If users only want to plot the CGC structure plus the read mapping coverage:
 

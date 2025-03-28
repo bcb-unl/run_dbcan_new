@@ -93,7 +93,7 @@ The CGC finder generates several output files:
 
 .. admonition:: Next Steps
 
-   After generating the CGC annotation information, proceed to :doc:`CGC identification <cgc-finder>` to identify and analyze CAZyme gene clusters in your genome.
+   After generating the CGC annotation information, proceed to :doc:`CGC identification <CGC_annotation>` to identify and analyze CAZyme gene clusters in your genome.
 
 
 
