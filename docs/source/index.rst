@@ -132,3 +132,10 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
    :caption: references
 
    references/index
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: contributors
+
+   contributors/index

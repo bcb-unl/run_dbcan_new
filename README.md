@@ -24,10 +24,10 @@
 ## Update
 
 3/16/2025:
-1. Rewrite the structure of run_dbcan_new (suggested by Haidong), using object-oriented programming (OOP) to improve maintainability and readability. 
+1. Rewrite the structure of run_dbcan_new (suggested by Haidong), using object-oriented programming (OOP) to improve maintainability and readability.
 2. Added new function: cgc_circle, which can visualize CGC in genome.
 
-**Future plans** Add prediction of food consumption through CAZyme. If you have new suggestions, please contact yyin@unl.edu (Dr. Yanbin Yin), xzhang55@huskers.unl.edu (Xinpeng Zhang), Haidong Yi (hyi@stjude.org)
+**Future plans** Add prediction of food consumption through CAZyme. If you have new suggestions, please contact Dr. Yanbin Yin (yyin@unl.edu), Xinpeng Zhang (xzhang55@huskers.unl.edu), and Dr. Haidong Yi (hyi@stjude.org).
 
 ## Introduction
 
