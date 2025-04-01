@@ -12,3 +12,4 @@ ipython
 sphinx-copybutton
 sphinx-issues
 sphinx-design
+sphinx-argparse
