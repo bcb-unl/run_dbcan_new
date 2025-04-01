@@ -9,7 +9,7 @@ If you have any questions or suggestions, please feel free to contact us:
 
 * Dr. Yanbin Yin, Professor (yyin@unl.edu)
 * Xinpeng Zhang, PhD Student (xzhang55@huskers.unl.edu)
-* Dr. Haidong Yi, Bioinformatics Scientist (hyi@stjude.org)
+* Dr. Haidong Yi, Software Engineer  (hyi@stjude.org)
 
 All conda environments dependencies can be found at the following link:
 `run_dbCAN Conda Environments <https://github.com/bcb-unl/run_dbcan_new/tree/master/envs>`_
