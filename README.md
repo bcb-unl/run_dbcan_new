@@ -15,8 +15,8 @@
   <a href="#"><img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/dbcan?style=for-the-badge&logo=python&labelColor=363a4f&color=99d1db"></a>
   <a href="https://github.com/bcb-unl/run_dbcan_new/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/bcb-unl/run_dbcan_new?style=for-the-badge&logo=github&labelColor=363a4f&color=89dceb"></a>
   <a href="https://github.com/bcb-unl/run_dbcan_new/blob/master/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/bcb-unl/run_dbcan_new?style=for-the-badge&labelColor=363a4f&color=eba0ac"></a>
-  <a href="https://github.com/bcb-unl/run_dbcan_new/actions/workflows/build_dbcan_docker.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/bcb-unl/run_dbcan_new/build_dbcan_docker.yaml?branch=master&style=for-the-badge&logo=github&labelColor=363a4f&color=f2cdcd"></a>
-  <a href="https://github.com/bcb-unl/run_dbcan_new/actions/workflows/test_dbcan.yaml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/bcb-unl/run_dbcan_new/test_dbcan.yaml?branch=master&style=for-the-badge&logo=github&label=Test&labelColor=363a4f&color=a6d189"></a>
+  <a href="https://github.com/bcb-unl/run_dbcan_new/actions/workflows/build_dbcan_docker.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/bcb-unl/run_dbcan_new/build_dbcan_docker.yml?branch=master&style=for-the-badge&logo=github&labelColor=363a4f&color=f2cdcd"></a>
+  <a href="https://github.com/bcb-unl/run_dbcan_new/actions/workflows/test_dbcan.yml"><img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/bcb-unl/run_dbcan_new/test_dbcan.yml?branch=master&style=for-the-badge&logo=github&label=Test&labelColor=363a4f&color=a6d189"></a>
 </p>
 
 ## Update
