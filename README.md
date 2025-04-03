@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img src="https://github.com/bcb-unl/run_dbcan_new/tree/master/docs/source/_static/img/run_dbcan_v5_logo.png" width="400" alt="dbCAN-logo"/><br/>
+  <img src="https://raw.githubusercontent.com/bcb-unl/run_dbcan_new/master/docs/source/_static/img/run_dbcan_v5_logo.png" width="400" alt="dbCAN-logo"/><br/>
 
   run_dbcan - Standalone Tool of <a href="http://bcb.unl.edu/dbCAN2/">dbCAN3</a>
 
