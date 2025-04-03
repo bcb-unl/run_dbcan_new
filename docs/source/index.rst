@@ -81,7 +81,7 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
 
 .. toctree::
    :maxdepth: 1
-   :caption: getting_started
+   :caption: Getting start
 
    getting_started/installation
    getting_started/quick_start
@@ -90,7 +90,7 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
 
 .. toctree::
    :maxdepth: 1
-   :caption: user_guide
+   :caption: User guide
 
    user_guide/prepare_the_database
    user_guide/CAZyme_annotation
@@ -98,6 +98,12 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
    user_guide/CGC_annotation
    user_guide/predict_CGC_substrate
    user_guide/CGC_plots
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Comparison
+
+   comparison/CAZyme_annotation_compare
 
 
 .. toctree::
@@ -108,7 +114,7 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
 
 .. toctree::
    :maxdepth: 1
-   :caption: metagenomics_pipeline
+   :caption: Metagenomics pipeline
 
    metagenomics_pipeline/run_from_raw_reads
    metagenomics_pipeline/run_from_raw_reads_am
@@ -121,7 +127,7 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
 
 .. toctree::
    :maxdepth: 1
-   :caption: change_logs
+   :caption: Change logs
 
    change-logs/index
 
@@ -129,13 +135,13 @@ Otherwise, refer to the instructions below. Please note that some precomputed re
 
 .. toctree::
    :maxdepth: 1
-   :caption: references
+   :caption: References
 
    references/index
 
 
 .. toctree::
    :maxdepth: 1
-   :caption: contributors
+   :caption: Contributors
 
    contributors/index

@@ -9,7 +9,7 @@ The tool offers two approaches:
 
 2. **Step-by-step analysis** - Breaking down the process for troubleshooting or customization
 
-Here we performed the `Automated analysis`` for each example file. For the `Step-by-step analysis` analysis, please refer to the documentation `user_guide`.
+Here we performed the `Automated analysis` for each example file. For the `Step-by-step analysis` analysis, please refer to the documentation `user_guide`.
 
 Example Data
 --------------
